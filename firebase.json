@@ -10,10 +10,6 @@
       {
         "source": "/Community",
         "destination": "/Community.html"
-      },
-      {
-        "source": "**",
-        "destination": "/index.html"
       }
     ]
   }
