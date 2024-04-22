@@ -1,7 +1,7 @@
 import { Afacad } from 'next/font/google';
 import { SVGProps } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 //sidebar.tsx
 

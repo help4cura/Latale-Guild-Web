@@ -1,10 +1,10 @@
 import { Afacad } from 'next/font/google';
 import React, { useState } from 'react'; // React를 명시적으로 임포트
 import Link from "next/link";
-import Image from 'next/image';
 import Sidebar from '@/components/component/sidebar';
 import PopupImage from '@/components/component/popupImage';
 import { SVGProps } from 'react';
+import Image from 'next/image';
 
 //community.tsx
 
@@ -71,7 +71,7 @@ export default function Community() {
                                 className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 shadow-md transition-colors duration-300 ease-in-out hover:from-purple-500 hover:to-indigo-500 focus:outline-none"
                             >
                                 <div className="bg-white rounded-lg p-2">
-                                    <img
+                                    <Image
                                         alt="Discord"
                                         className="rounded-lg"
                                         height="64"
@@ -92,7 +92,7 @@ export default function Community() {
                                 className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-400 shadow-md transition-colors duration-300 ease-in-out hover:from-orange-400 hover:to-yellow-400 focus:outline-none"
                             >
                                 <div className="bg-white rounded-lg p-2">
-                                    <img
+                                    <Image
                                         alt="KakaoTalk"
                                         className="rounded-lg"
                                         height="64"

@@ -9,7 +9,7 @@ interface PopupImageProps {
 
 export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
     const [isButtonVisible, setButtonVisible] = useState(false);
-    const popupRef = useRef(null);
+    const popupRef = useRef<HTMLDivElement>(null);
     const [animating, setAnimating] = useState(false);
 
     const checkScrollBottom = () => {
@@ -34,7 +34,6 @@ export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
     useEffect(() => {
         const toggleBodyScroll = isVisible ? 'hidden' : 'auto';
         document.body.style.overflow = toggleBodyScroll;
-
         return () => {
             document.body.style.overflow = 'auto';
         };
@@ -46,7 +45,7 @@ export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
                 }`}
         >
             <div
-                className="relative w-full max-w-[600px] max-h-[30vh] overflow-y-auto"
+                className="relative w-90 max-w-[1240px] max-h-[90vh] overflow-y-auto"
                 ref={popupRef}
                 onScroll={checkScrollBottom}
             >
@@ -56,14 +55,17 @@ export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
                 >
                     &times;
                 </button>
-                <Image unoptimized
-                    src="/test.gif"
-                    alt="test"
-                    layout="responsive"
-                    width={600}
-                    height={900}
-                    className="object-contain"
-                />
+                <div className="relative">
+                    <Image
+                        unoptimized
+                        src="/test.png"
+                        alt="test"
+                        layout="responsive"
+                        width={1240}
+                        height={3000}
+                        className="object-contain"
+                    />
+                </div>
             </div>
             {isButtonVisible && (
                 <a

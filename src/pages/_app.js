@@ -7,7 +7,6 @@ const afacad = Afacad({ subsets: ['latin'] })
 
 export default function ApplyFont({ Component, pageProps }) {
     return <Component {...pageProps} />
-
 }
 
 export function Layout({ children }) {

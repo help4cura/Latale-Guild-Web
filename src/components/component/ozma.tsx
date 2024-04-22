@@ -8,10 +8,10 @@
 //Import
 import { useState, useEffect } from 'react';
 import Link from "next/link";
-import Image from 'next/image';
 import Sidebar from './sidebar';
 import PopupImage from './popupImage';
 import { SVGProps } from 'react';
+import Image from 'next/image';
 
 //Fonts
 import { Afacad } from 'next/font/google';
@@ -106,12 +106,12 @@ export function _ozma() {
                   <div className="text-center space-y-6 text-gray-50 max-w-md">
                     <h2 className={`${afacad.className} text-3xl font-bold`}>Welcome!</h2>
                     <p className={`${afacad.className} text-lg`}>
-                      We've been waiting just for you.
+                      We&apos;ve been waiting just for you.
                     </p>
                   </div>
                 </div>
               </div>
-              <img
+              <Image
                 alt="Poster"
                 className="object-cover w-full h-full rounded-xl"
                 height={300}
