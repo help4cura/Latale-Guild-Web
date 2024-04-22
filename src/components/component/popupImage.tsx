@@ -68,7 +68,7 @@ export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
             </div>
             {isButtonVisible && (
                 <a
-                    href="https://forms.gle/Bk6bh7BvGMma8jdQ8"
+                    href="https://forms.gle/Bk6bh7BvGMma8jdQ8" //구글 폼 연결
                     className="mt-4 inline-block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-2 px-4 rounded shadow-lg transform transition-colors duration-300 ease-in-out"
                     target="_blank"
                     rel="noopener noreferrer"
