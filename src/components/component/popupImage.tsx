@@ -73,7 +73,7 @@ export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    길드 지원하기
+                    길드 원하기
                 </a>
             )}
         </div>
