@@ -57,7 +57,6 @@ export default function PopupImage({ isVisible, onClose }: PopupImageProps) {
                 </button>
                 <div className="relative">
                     <Image
-                        unoptimized
                         src="/test.png"
                         alt="test"
                         layout="responsive"
