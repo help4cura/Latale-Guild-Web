@@ -156,7 +156,7 @@ export default function Giveaway() {
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
                                 <CountdownTimer endTimeStr="2024-05-03 23:59" />
                                 <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
-                                    <span>0 Joined</span>
+                                    <span>Test Mode : Access Denied</span>
                                 </div>
                             </div>
                             <div className="p-8 flex flex-col items-center justify-center">
