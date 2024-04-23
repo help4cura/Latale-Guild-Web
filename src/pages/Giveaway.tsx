@@ -161,21 +161,21 @@ export default function Giveaway() {
                             </div>
                             <div className="p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Prize</h2>
-                                <div className="flex items-center mb-4">
-                                    <Image
-                                        alt="Prize"
-                                        className="rounded-full mr-4"
-                                        height={100}
-                                        src="tile_11_11.png"
-                                        style={{
-                                            aspectRatio: "100/100",
-                                            objectFit: "cover",
-                                        }}
-                                        width={100}
-                                    />
+                                <div className="flex items-center mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 rounded-lg border border-gray-300 shadow-md p-4 ">
+                                    <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white">
+                                        <Image
+                                            alt="Prize"
+                                            src="tile_11_11.png"
+                                            width={40}
+                                            height={40}
+                                            style={{ objectFit: "contain" }}
+                                        />
+                                    </div>
                                     <div>
-                                        <h3 className={`${afacad.className} text-xl font-bold`}>로얄 상자</h3>
-                                        <p className={`${afacad.className} text-gray-500`}>x30</p>
+                                        <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
+                                            로얄 상자
+                                        </h3>
+                                        <p className={`${afacad.className} text-white`}>x30</p>
                                     </div>
                                 </div>
                                 <div className="space-y-4 w-full">
