@@ -2,21 +2,16 @@ import { Afacad } from 'next/font/google';
 
 import { SVGProps } from 'react';
 import Image from 'next/image';
-import React, { useState } from 'react'; // React를 명시적으로 임포트
+import React, { useState, useEffect } from 'react'; // React를 명시적으로 임포트
 import Link from "next/link";
 import Sidebar from '@/components/component/sidebar';
 import PopupImage from '@/components/component/popupImage';
-import { useEffect } from 'react';
 
 //community.tsx
 
 const afacad = Afacad({
     subsets: ['latin']
 });
-
-useEffect(() => {
-    document.title = '커뮤니티 - 라테일 [평등] 길드';
-}, []);
 
 export default function Community() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -29,6 +24,10 @@ export default function Community() {
     const handlePopupClose = () => {
         setIsPopupVisible(false);
     };
+
+    useEffect(() => {
+        document.title = '커뮤니티 - 라테일 [평등] 길드';
+    }, []);
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
