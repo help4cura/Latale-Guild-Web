@@ -26,7 +26,7 @@ export default function Community() {
     };
 
     useEffect(() => {
-        document.title = '커뮤니티 - 라테일 [평등] 길드';
+        document.title = '🤝커뮤니티 - 라테일 [평등] 길드';
     }, []);
 
     return (

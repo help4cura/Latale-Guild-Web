@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, showPopup }: Sidebar
 
     return isOpen ? (
         <div
-            className={`fixed inset-0 flex h-screen bg-gray-200 transition-transform duration-500 ${isAnimating ? 'animate-slideIn' : 'animate-slideOut'
+            className={`fixed inset-0 flex h-screen transition-transform duration-500 ${isAnimating ? 'animate-slideIn' : 'animate-slideOut'
                 }`}
         >
             <div className="w-52 bg-gray-900 text-white relative">
@@ -63,6 +63,12 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, showPopup }: Sidebar
                                     <MailOpenIcon className="h-6 w-6" />
                                     <span className={`${afacad.className} text-2xl`}>Recruit</span>
                                 </a>
+                            </li>
+                            <li>
+                                <Link href="/Giveaway" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800">
+                                    <GiftIcon className="h-6 w-6" />
+                                    <span className={`${afacad.className} text-2xl`}>Giveaway</span>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -114,7 +120,6 @@ function MailOpenIcon(props: SVGProps<SVGSVGElement>) {
     )
 }
 
-
 function UsersIcon(props: SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -133,6 +138,29 @@ function UsersIcon(props: SVGProps<SVGSVGElement>) {
             <circle cx="9" cy="7" r="4" />
             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+    )
+}
+
+function GiftIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <polyline points="20 12 20 22 4 22 4 12" />
+            <rect width="20" height="5" x="2" y="7" />
+            <line x1="12" x2="12" y1="22" y2="7" />
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
         </svg>
     )
 }
