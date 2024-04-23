@@ -94,7 +94,7 @@ export default function Giveaway() {
                             <div className="p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Prize</h2>
                                 <div className="flex items-center mb-4">
-                                    <img
+                                    <Image
                                         alt="Prize"
                                         className="rounded-full mr-4"
                                         height={100}
