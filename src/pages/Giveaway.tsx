@@ -161,7 +161,7 @@ export default function Giveaway() {
                             </div>
                             <div className="p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Prize</h2>
-                                <div className="flex items-center mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 rounded-lg border border-gray-300 shadow-md p-4 ">
+                                <div className="flex items-center mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 rounded-lg border border-gray-100 shadow-md p-4 ">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white">
                                         <Image
                                             alt="Prize"
