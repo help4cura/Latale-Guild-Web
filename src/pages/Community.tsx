@@ -2,7 +2,7 @@ import { Afacad } from 'next/font/google';
 
 import { SVGProps } from 'react';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react'; // React를 명시적으로 임포트
+import React, { useState, useEffect, useRef } from 'react'; // React를 명시적으로 임포트
 import Link from "next/link";
 import Sidebar from '@/components/component/sidebar';
 import PopupImage from '@/components/component/popupImage';
@@ -120,6 +120,23 @@ export default function Community() {
 }
 
 function ScaleIcon(props: SVGProps<SVGSVGElement>) {
+    const gradientRef = useRef<SVGLinearGradientElement>(null);
+
+    useEffect(() => {
+        const gradient = gradientRef.current;
+        let rotateAngle = 0;
+
+        const animate = () => {
+            rotateAngle = (rotateAngle + 1) % 360;
+            if (gradient) {
+                gradient.setAttribute('gradientTransform', `rotate(${rotateAngle}, 0.5, 0.5)`);
+            }
+            requestAnimationFrame(animate);
+        };
+
+        animate();
+    }, []);
+
     return (
         <svg
             {...props}
@@ -131,25 +148,18 @@ function ScaleIcon(props: SVGProps<SVGSVGElement>) {
             className="w-20 h-20"
         >
             <defs>
-                <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="0%" y2="100%" ref={gradientRef}>
                     <stop offset="0%" stopColor="#6a82fb" />
                     <stop offset="100%" stopColor="#b892ff" />
-                    <animateTransform
-                        attributeName="gradientTransform"
-                        type="rotate"
-                        from="0 0.5 0.5" to="360 0.5 0.5"
-                        dur="1.5s"
-                        repeatCount="indefinite"
-                        additive="sum"
-                    />
                 </linearGradient>
             </defs>
-            <g stroke="url(#animatedGradient)" strokeWidth="2">
+            <g stroke="url(#animatedGradient)" strokeWidth={2}>
                 <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
                 <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
                 <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2 M7 21h10 M12 3v18" />
             </g>
         </svg>
     );
-}
+};
+
 
