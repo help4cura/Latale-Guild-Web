@@ -7,16 +7,91 @@ import Link from "next/link";
 import Sidebar from '@/components/component/sidebar';
 import PopupImage from '@/components/component/popupImage';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
 
-//community.tsx
+const firebaseConfig = {
+    // 여기에 Firebase 구성 정보를 입력하세요
+    projectId: 'latale-1d43a',
+};
+firebase.initializeApp(firebaseConfig);
+
+const database = firebase.database();
+
 
 const afacad = Afacad({
     subsets: ['latin']
 });
 
+interface CountdownTimerProps {
+    endTimeStr: string;  // "YYYY-MM-DD HH:mm" 형식으로 종료 시간이 문자열로 전달됨
+}
+
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr }) => {
+    const [secondsLeft, setSecondsLeft] = useState<number | null>(null);  // null로 초기 상태 설정
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            // SSR(서버사이드 렌더링)에서는 setInterval을 실행하지 않음
+            return;
+        }
+
+        const endTime = new Date(endTimeStr).getTime();
+        let intervalId: number; // 여기서 number 타입으로 단언
+
+        const updateSeconds = () => {
+            const now = Date.now();
+            const newSecondsLeft = Math.max(Math.floor((endTime - now) / 1000), 0);
+            setSecondsLeft(newSecondsLeft);
+
+            if (newSecondsLeft === 0) {
+                clearInterval(intervalId);
+            }
+        };
+
+        updateSeconds();
+        intervalId = window.setInterval(updateSeconds, 1000) as unknown as number; // number 타입으로 단언
+
+        return () => {
+            window.clearInterval(intervalId);
+        };
+    }, [endTimeStr]);
+
+    if (secondsLeft === null) {
+        return
+    }
+
+    const days = Math.floor(secondsLeft / (3600 * 24));  // 하루의 총 초수로 나누기
+    const hours = Math.floor((secondsLeft % (3600 * 24)) / 3600);  // 일수를 제외한 나머지 시간
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const seconds = secondsLeft % 60;
+
+    return (
+        <div className="flex items-center space-x-6 text-5xl font-bold">
+            <div className={`${afacad.className} flex flex-col items-center`}>
+                <span>{days}</span>
+                <span className={`${afacad.className} text-lg font-normal`}>Days</span>
+            </div>
+            <div className={`${afacad.className} flex flex-col items-center`}>
+                <span>{hours}</span>
+                <span className={`${afacad.className} text-lg font-normal`}>Hours</span>
+            </div>
+            <div className={`${afacad.className} flex flex-col items-center`}>
+                <span>{minutes}</span>
+                <span className={`${afacad.className} text-lg font-normal`}>Minutes</span>
+            </div>
+            <div className={`${afacad.className} flex flex-col items-center`}>
+                <span>{seconds}</span>
+                <span className={`${afacad.className} text-lg font-normal`}>Seconds</span>
+            </div>
+        </div>
+    );
+}
+
 export default function Giveaway() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const [countdownTime, setCountdownTime] = useState<number | null>(null);
 
     const showPopup = () => {
         setIsPopupVisible(true);
@@ -28,6 +103,16 @@ export default function Giveaway() {
 
     useEffect(() => {
         document.title = '🎉추첨 - 라테일 [평등] 길드';
+        const countdownTimeRef = database.ref('countdownTime');
+
+        // 올바른 이벤트 리스너 해제 방법 사용
+        const onValueChange = (snapshot: firebase.database.DataSnapshot) => {
+            const value = snapshot.val();
+            setCountdownTime(value);
+        };
+        countdownTimeRef.on('value', onValueChange);
+
+        return () => countdownTimeRef.off('value', onValueChange);
     }, []);
 
     return (
@@ -69,24 +154,7 @@ export default function Giveaway() {
                         <div className="grid grid-cols-1 md:grid-cols-2">
                             <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                <div className="flex items-center space-x-6 text-5xl font-bold">
-                                    <div className={`${afacad.className} flex flex-col items-center`}>
-                                        <span id="days">99</span>
-                                        <span className={`${afacad.className} text-lg font-normal`}>Days</span>
-                                    </div>
-                                    <div className={`${afacad.className} flex flex-col items-center`}>
-                                        <span id="hours">23</span>
-                                        <span className={`${afacad.className} text-lg font-normal`}>Hours</span>
-                                    </div>
-                                    <div className={`${afacad.className} flex flex-col items-center`}>
-                                        <span id="minutes">59</span>
-                                        <span className={`${afacad.className} text-lg font-normal`}>Minutes</span>
-                                    </div>
-                                    <div className={`${afacad.className} flex flex-col items-center`}>
-                                        <span id="seconds">59</span>
-                                        <span className={`${afacad.className} text-lg font-normal`}>Seconds</span>
-                                    </div>
-                                </div>
+                                <CountdownTimer endTimeStr="2024-05-03 23:59" />
                                 <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
                                     <span>0 Joined</span>
                                 </div>
@@ -177,3 +245,4 @@ function ScaleIcon(props: SVGProps<SVGSVGElement>) {
         </svg>
     );
 };
+
