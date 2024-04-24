@@ -12,6 +12,7 @@ import Sidebar from './sidebar';
 import PopupImage from './popupImage';
 import { SVGProps } from 'react';
 import Image from 'next/image';
+import RegisterButton from './registerButton';
 
 //Fonts
 import { Afacad } from 'next/font/google';
@@ -85,19 +86,13 @@ export function _ozma() {
       )}
       <div className="flex flex-col flex-1 items-center justify-center"> {/* 나머지 페이지 내용 */}
         <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
+        <RegisterButton />
         <header className="py-12 z-50">
           <Link className="flex items-center justify-center" href="#">
             <ScaleIcon className="mb-1 w-1 h-10" />
             <span className="sr-only">Oryx</span>
           </Link>
         </header>
-
-
-
-
-        {/*
-        <Image src="/logo.png" alt="" width={128} height={128} />
-        */}
         <main className="container px-4 md:px-6 flex flex-col items-center justify-center space-y-8 max-w-3xl">
           <div className="flex flex-col items-center justify-center space-y-4">
             <div className="relative w-full max-w-[300px] h-[300px] overflow-auto rounded-xl shadow-lg z-50">

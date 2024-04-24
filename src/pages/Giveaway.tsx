@@ -1,14 +1,16 @@
 import { Afacad } from 'next/font/google';
-
 import { SVGProps } from 'react';
-import Image from 'next/image';
 import React, { useState, useEffect, useRef } from 'react'; // React를 명시적으로 임포트
+
+import Image from 'next/image';
 import Link from "next/link";
 import Sidebar from '@/components/component/sidebar';
 import PopupImage from '@/components/component/popupImage';
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
+
+import Confetti from '@/components/component/confetti';
 
 const firebaseConfig = {
     // 여기에 Firebase 구성 정보를 입력하세요
@@ -18,16 +20,16 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-
 const afacad = Afacad({
     subsets: ['latin']
 });
 
 interface CountdownTimerProps {
-    endTimeStr: string;  // "YYYY-MM-DD HH:mm" 형식으로 종료 시간이 문자열로 전달됨
+    endTimeStr: string;
+    onComplete: () => void; // 타이머 완료시 호출할 콜백
 }
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr }) => {
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete }) => {
     const [secondsLeft, setSecondsLeft] = useState<number | null>(null);  // null로 초기 상태 설정
 
     useEffect(() => {
@@ -46,6 +48,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr }) => {
 
             if (newSecondsLeft === 0) {
                 clearInterval(intervalId);
+                onComplete();
             }
         };
 
@@ -55,7 +58,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr }) => {
         return () => {
             window.clearInterval(intervalId);
         };
-    }, [endTimeStr]);
+    }, [endTimeStr, onComplete]);
 
     if (secondsLeft === null) {
         return
@@ -92,6 +95,11 @@ export default function Giveaway() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [countdownTime, setCountdownTime] = useState<number | null>(null);
+    const [isTimerComplete, setIsTimerComplete] = useState(false);
+
+    const handleTimerComplete = () => {
+        setIsTimerComplete(true);
+    };
 
     const showPopup = () => {
         setIsPopupVisible(true);
@@ -143,7 +151,7 @@ export default function Giveaway() {
             <div
                 key="1"
                 className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-br from-orange-200 via-red-100 to-purple-200 py-12 md:py-24" >
-                <div className="max-w-4xl px-4 md:px-6">
+                <div className="z-50 max-w-4xl px-4 md:px-6">
                     <h1 className={`${afacad.className} text-4xl md:text-6xl font-bold text-white mb-8 text-center`}>
                         <Link className="flex items-center justify-center" href="/">
                             <ScaleIcon className="mb-1 w-1 h-10" />
@@ -152,15 +160,32 @@ export default function Giveaway() {
                     </h1>
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center">
-                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                <CountdownTimer endTimeStr="2024-05-03 23:59" />
-                                <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
-                                    <span>Test Mode : Access Denied</span>
+                            {!isTimerComplete && (
+                                <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative">
+                                    <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
+                                    <CountdownTimer endTimeStr="2024-04-24 17:01:01" onComplete={handleTimerComplete} />
+                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
+                                        <span>Test Mode : Access Denied</span>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
+                            {isTimerComplete && (
+                                <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative">
+                                    <Confetti />
+                                    <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Congratulations!</h2>
+                                    <div className="flex items-center space-x-6 text-5xl font-bold">
+                                        <div className={`${afacad.className} flex flex-col items-center`}>
+                                            <span>Oryx</span>
+                                            <span className={`${afacad.className} text-lg font-normal`}>Winner</span>
+                                        </div>
+                                    </div>
+                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
+                                        <span>Test Mode : Access Denied</span>
+                                    </div>
+                                </div>
+                            )}
                             <div className="p-8 flex flex-col items-center justify-center">
-                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Prize</h2>
+                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Oryx&apos;s Giveaway</h2>
                                 <div className="flex items-center mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 rounded-lg border border-gray-100 shadow-md p-4 ">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white">
                                         <Image

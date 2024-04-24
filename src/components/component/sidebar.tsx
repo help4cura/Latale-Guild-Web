@@ -2,6 +2,7 @@ import { Afacad } from 'next/font/google';
 import { SVGProps } from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
+import Confetti from './confetti';
 
 //sidebar.tsx
 

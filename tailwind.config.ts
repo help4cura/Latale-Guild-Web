@@ -34,6 +34,10 @@ const config: Config = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '.5' },
         },
+        confetti: {
+          '0%': { transform: 'translateY(-100%) rotate(0deg)' },
+          '100%': { transform: 'translateY(100vh) rotate(360deg)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.5s ease-out forwards',
@@ -41,6 +45,7 @@ const config: Config = {
         slideIn: 'slideIn 0.5s ease-out forwards',
         slideOut: 'slideOut 0.5s ease-in forwards',
         custompulse: 'custompulse 3s linear infinite',
+        confetti: 'confetti 5s linear infinite',
       }
     },
   },
