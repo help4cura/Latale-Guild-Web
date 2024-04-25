@@ -170,16 +170,19 @@ export default function Giveaway() {
                                 </div>
                             )}
                             {isTimerComplete && (
-                                <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative">
+                                <div
+                                    className="bg-[#6B46C1] text-white p-8 flex flex-col items-center user-select-none justify-center relative"
+                                    onMouseDown={(e) => e.preventDefault()} // 마우스로 요소를 잡는 행위 자체를 방지
+                                >
                                     <Confetti />
-                                    <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Congratulations!</h2>
+                                    <h2 className={`${afacad.className} text-2xl md:text-3xl pointer-events-none user-select-none font-bold mb-4`}>Congratulations!</h2>
                                     <div className="flex items-center space-x-6 text-5xl font-bold">
-                                        <div className={`${afacad.className} flex flex-col items-center`}>
+                                        <div className={`${afacad.className} flex flex-col pointer-events-none user-select-none items-center`}>
                                             <span>Oryx</span>
-                                            <span className={`${afacad.className} text-lg font-normal`}>Winner</span>
+                                            <span className={`${afacad.className} text-lg pointer-events-none user-select-none font-normal`}>Winner</span>
                                         </div>
                                     </div>
-                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
+                                    <div className={`${afacad.className} mt-8 text-2xl pointer-events-none user-select-none font-bold`}>
                                         <span>Test Mode : Access Denied</span>
                                     </div>
                                 </div>

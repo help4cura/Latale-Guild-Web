@@ -3,7 +3,7 @@ import { SVGProps } from 'react';
 
 export default function RegisterButton() {
     return (
-        <div style={{ position: 'fixed', right: 20, top: 20, zIndex: 1000 }}>
+        <div className="fixed right-4 top-2 z-50">
             <Link href="/Register" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-300">
                 <UserInfoIcon className="mb-1 w-6 h-6" />
             </Link>

@@ -84,6 +84,7 @@ export function _ozma() {
           showPopup={showPopup}
         />
       )}
+
       <div className="flex flex-col flex-1 items-center justify-center"> {/* 나머지 페이지 내용 */}
         <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
         <RegisterButton />
