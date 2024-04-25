@@ -8,7 +8,7 @@ const randomRange = (min: number, max: number): number => {
 
 const addAnimation = (animationName: string, duration: number, delay: number) => {
     const xStart = randomRange(0, 0); // 시작 위치를 화면 전체 너비에 걸쳐 무작위로 설정
-    const xEnd = xStart + randomRange(-80, 80);
+    const xEnd = xStart + randomRange(-80, 80); // 종료 위치를 시작 위치에서 좌우 최대 200% 만큼 더 이동
     const rotationStart = Math.floor(randomRange(0, 360));
     const rotationEnd = rotationStart + 360;
 
@@ -83,7 +83,7 @@ const ConfettiPiece: React.FC<ConfettiPieceProps> = React.memo(({ onExitViewport
                 observer.unobserve(currentRef);
             }
         };
-    }, [onExitViewport]);
+    }, []);
 
     return <div ref={ref} style={style}></div>;
 });
@@ -94,7 +94,7 @@ export default function Confetti() {
     const [pieces, setPieces] = useState<number[]>([]);
 
     useEffect(() => {
-        setPieces(Array.from({ length: 4 }, (_, i) => i));
+        setPieces(Array.from({ length: 200 }, (_, i) => i));
     }, []);
 
     const handleExitViewport = useCallback((index: number) => {
