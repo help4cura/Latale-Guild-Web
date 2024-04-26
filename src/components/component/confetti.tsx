@@ -64,7 +64,7 @@ const ConfettiPiece: React.FC<ConfettiPieceProps> = React.memo(({ onExitViewport
                     const { bottom: rootBottom, left: rootLeft, right: rootRight } = rootBounds;
 
                     if (bottom > rootBottom || left < rootLeft || right > rootRight) {
-                        console.log('Destroyed');
+                        //console.log('Destroyed');
                         onExitViewport();
                     }
                 }
@@ -98,7 +98,7 @@ export default function Confetti() {
     }, []);
 
     const handleExitViewport = useCallback((index: number) => {
-        console.log('Destroyed');
+        //console.log('Destroyed');
         setPieces(prev => prev.filter(item => item !== index));
         addPiece();
     }, []);

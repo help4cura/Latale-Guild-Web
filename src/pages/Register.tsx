@@ -114,14 +114,14 @@ export default function Register() {
             const accountIdRef = firebase.database().ref('nextAccountId');
             const newAccountId = await accountIdRef.transaction(currentId => {
                 if (currentId === null) {
-                    return 1;
+                    return 2;  // 첫 번째 사용자의 경우, nextAccountId를 2로 설정합니다.
                 } else {
-                    return currentId + 1;
+                    return currentId + 1;  // 이후 사용자의 경우, nextAccountId를 현재 값 + 1로 업데이트합니다.
                 }
             });
 
             if (newAccountId.committed && newAccountId.snapshot) {
-                const newId = newAccountId.snapshot.val();
+                const newId = newAccountId.snapshot.val() - 1;
                 const userRef = firebase.database().ref(`users/${newId}`);
                 await userRef.set({
                     ...formData,

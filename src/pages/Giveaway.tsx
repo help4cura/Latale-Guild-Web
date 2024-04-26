@@ -189,15 +189,9 @@ export default function Giveaway() {
                             )}
                             <div className="p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Oryx&apos;s Giveaway</h2>
-                                <div className="flex items-center mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 rounded-lg border border-gray-100 shadow-md p-4 ">
+                                <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white">
-                                        <Image
-                                            alt="Prize"
-                                            src="tile_11_11.png"
-                                            width={40}
-                                            height={40}
-                                            style={{ objectFit: "contain" }}
-                                        />
+                                        <Image alt="Prize" src="tile_11_11.png" width={40} height={40} style={{ objectFit: "contain" }} />
                                     </div>
                                     <div>
                                         <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
