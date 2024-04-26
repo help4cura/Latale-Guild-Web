@@ -16,6 +16,10 @@
         "destination": "/Community.html"
       },
       {
+        "source": "/Register",
+        "destination": "/Register.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
