@@ -1,6 +1,3 @@
-/**
- * @tsx react-jsx
- */
 "use client";
 
 //ozma.tsx
