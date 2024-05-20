@@ -1,11 +1,12 @@
 import { Afacad } from 'next/font/google';
 import { SVGProps } from 'react';
-import React, { useState, useEffect, useRef } from 'react'; // React를 명시적으로 임포트
+import React, { useState, useEffect, useRef, MouseEvent } from 'react'; // React를 명시적으로 임포트
 
 import Image from 'next/image';
 import Link from "next/link";
 import Sidebar from '@/components/component/sidebar';
 import PopupImage from '@/components/component/popupImage';
+import * as  Tooltip from "@/components/component/tooltip";
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
@@ -96,6 +97,8 @@ export default function Giveaway() {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [countdownTime, setCountdownTime] = useState<number | null>(null);
     const [isTimerComplete, setIsTimerComplete] = useState(false);
+    const [isItemVisible, setIsItemVisible] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     const handleTimerComplete = () => {
         setIsTimerComplete(true);
@@ -107,6 +110,12 @@ export default function Giveaway() {
 
     const handlePopupClose = () => {
         setIsPopupVisible(false);
+    };
+
+    const handleMouseEnter = () => setIsItemVisible(true);
+    const handleMouseLeave = () => setIsItemVisible(false);
+    const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+        setMousePosition({ x: event.clientX, y: event.clientY });
     };
 
     useEffect(() => {
@@ -122,6 +131,8 @@ export default function Giveaway() {
 
         return () => countdownTimeRef.off('value', onValueChange);
     }, []);
+
+
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
@@ -163,7 +174,7 @@ export default function Giveaway() {
                             {!isTimerComplete && (
                                 <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative">
                                     <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                    <CountdownTimer endTimeStr="2024-04-24 17:01:01" onComplete={handleTimerComplete} />
+                                    <CountdownTimer endTimeStr="2024-05-17 15:15:01" onComplete={handleTimerComplete} />
                                     <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
                                         <span>Test Mode : Access Denied</span>
                                     </div>
@@ -190,8 +201,12 @@ export default function Giveaway() {
                             <div className="p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Oryx&apos;s Giveaway</h2>
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
-                                    <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white">
-                                        <Image alt="Prize" src="tile_11_11.png" width={40} height={40} style={{ objectFit: "contain" }} />
+                                    <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}
+                                        onMouseMove={handleMouseMove}
+                                    >
+                                        <Image alt="Prize" src="prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
                                     </div>
                                     <div>
                                         <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
@@ -199,6 +214,19 @@ export default function Giveaway() {
                                         </h3>
                                         <p className={`${afacad.className} text-white`}>x30</p>
                                     </div>
+                                    {isItemVisible && (
+                                        <div
+                                            style={{
+                                                position: 'fixed',
+                                                top: mousePosition.y + 10,
+                                                left: mousePosition.x + 10,
+                                                pointerEvents: 'none',
+                                                zIndex: 1000,
+                                            }}
+                                        >
+                                            <Tooltip.Item1 />
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="space-y-4 w-full">
                                     <div className="space-y-2">

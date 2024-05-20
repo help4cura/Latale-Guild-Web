@@ -8,6 +8,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      scale: {
+        '67': '0.6600',
+      },
+      fontFamily: {
+        gulim: ['Gulim', 'sans-serif'], // 굴림 폰트를 추가
+      },
+      fontSize: {
+        '12px': '12px', // 12px 글꼴 크기를 추가
+      },
+      boxShadow: {
+        itemShadow: '1.5px 1.5px 2px rgba(0, 0, 0, 0.48)', // 오른쪽과 아래쪽에 그림자 추가
+      },
+      colors: {
+        'item-blue': '#0000ff',
+        'item-red': '#ff0000',
+        'item-optOn': '#4a8f41',
+        'item-optOff': '#b5b5b5',
+        'item-outline': '#7c79ba',
+        'item-end': '#ff84c3',
+        'item-seal': '#f15881',
+        'item-decom': ' #328188',
+        'item-enchant': '#3c59b5',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
