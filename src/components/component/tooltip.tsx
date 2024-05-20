@@ -66,7 +66,7 @@ export function Item1() {
                 제한 레벨 : 1 ▲
             </div>
             <div className="font-gulim text-12px text-black" style={{ lineHeight: '1.1em' }}>
-                <div className="font-gulim text-12px"> "다양한 상품으로 구성된 라테일 프리미엄 선물 상자"</div>
+                <div className="font-gulim text-12px">&quot;다양한 상품으로 구성된 라테일 프리미엄 선물 상자&quot;</div>
                 <br />
                 <div className="font-gulim text-12px"> ※획득 가능 구성품※</div>
                 <div className="font-gulim text-12px"> ☞ 블론드 머리모양 변경권</div>
@@ -83,13 +83,12 @@ export function Item1() {
                 <div className="font-gulim text-12px"> ※효과※</div>
                 <div className="font-gulim text-12px"> ☞ 개봉 시 소량의 경험치 증가</div>
                 <div className="font-gulim text-12px"> ☞ 낮은 확률로 복주머니 추가 획득 <span style={{ marginLeft: '0.3em' }}>가능</span></div>
-
             </div>
             <div className="flex justify-between mt-1">
-                <button className="font-gulim text-12px text-item-optOn px-2 ">거래</button>
-                <button className="font-gulim text-12px text-item-optOn px-2 ">파괴</button>
-                <button className="font-gulim text-12px text-item-optOn px-2 ">창고</button>
-                <button className="font-gulim text-12px text-item-optOff px-2 ">판매</button>
+                <button className="font-gulim text-12px text-item-optOn px-2">거래</button>
+                <button className="font-gulim text-12px text-item-optOn px-2">파괴</button>
+                <button className="font-gulim text-12px text-item-optOn px-2">창고</button>
+                <button className="font-gulim text-12px text-item-optOff px-2">판매</button>
             </div>
         </div>
     );
