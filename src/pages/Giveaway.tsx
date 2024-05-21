@@ -1,46 +1,43 @@
-import { Afacad } from 'next/font/google';
+import { Afacad, Do_Hyeon } from 'next/font/google';
+import AutoFont from '@/components/autofont';
 import { SVGProps } from 'react';
-import React, { useState, useEffect, useRef, MouseEvent } from 'react'; // React를 명시적으로 임포트
+import React, { useState, useEffect, useRef, MouseEvent } from 'react';
+import { database } from '@/firebaseConfig';
+import { ref as databaseRef, get, set, onValue } from 'firebase/database';
 
 import Image from 'next/image';
 import Link from "next/link";
-import Sidebar from '@/components/component/sidebar';
-import PopupImage from '@/components/component/popupImage';
-import * as  Tooltip from "@/components/component/tooltip";
+import Sidebar from '@/components/sidebar';
+import PopupImage from '@/components/popupImage';
+import * as Tooltip from "@/components/tooltip";
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-
-import Confetti from '@/components/component/confetti';
-
-const firebaseConfig = {
-    // 여기에 Firebase 구성 정보를 입력하세요
-    projectId: 'latale-1d43a',
-};
-firebase.initializeApp(firebaseConfig);
-
-const database = firebase.database();
+import Confetti from '@/components/confetti';
 
 const afacad = Afacad({
     subsets: ['latin']
 });
 
+const do_Hyeon = Do_Hyeon({
+    subsets: ['latin'],
+    weight: ["400"],
+    style: ['normal']
+})
+
 interface CountdownTimerProps {
     endTimeStr: string;
-    onComplete: () => void; // 타이머 완료시 호출할 콜백
+    onComplete: () => void;
 }
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete }) => {
-    const [secondsLeft, setSecondsLeft] = useState<number | null>(null);  // null로 초기 상태 설정
+    const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
 
     useEffect(() => {
         if (typeof window === "undefined") {
-            // SSR(서버사이드 렌더링)에서는 setInterval을 실행하지 않음
             return;
         }
 
         const endTime = new Date(endTimeStr).getTime();
-        let intervalId: number; // 여기서 number 타입으로 단언
+        let intervalId: number;
 
         const updateSeconds = () => {
             const now = Date.now();
@@ -54,7 +51,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
         };
 
         updateSeconds();
-        intervalId = window.setInterval(updateSeconds, 1000) as unknown as number; // number 타입으로 단언
+        intervalId = window.setInterval(updateSeconds, 1000) as unknown as number;
 
         return () => {
             window.clearInterval(intervalId);
@@ -62,11 +59,11 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
     }, [endTimeStr, onComplete]);
 
     if (secondsLeft === null) {
-        return
+        return null;
     }
 
-    const days = Math.floor(secondsLeft / (3600 * 24));  // 하루의 총 초수로 나누기
-    const hours = Math.floor((secondsLeft % (3600 * 24)) / 3600);  // 일수를 제외한 나머지 시간
+    const days = Math.floor(secondsLeft / (3600 * 24));
+    const hours = Math.floor((secondsLeft % (3600 * 24)) / 3600);
     const minutes = Math.floor((secondsLeft % 3600) / 60);
     const seconds = secondsLeft % 60;
 
@@ -84,7 +81,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
                 <span>{minutes}</span>
                 <span className={`${afacad.className} text-lg font-normal`}>Minutes</span>
             </div>
-            <div className={`${afacad.className} flex flex-col items-center`}>
+            <div className={`${afacad.className} flex flex-col items_center`}>
                 <span>{seconds}</span>
                 <span className={`${afacad.className} text-lg font-normal`}>Seconds</span>
             </div>
@@ -95,13 +92,17 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
 export default function Giveaway() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [countdownTime, setCountdownTime] = useState<number | null>(null);
     const [isTimerComplete, setIsTimerComplete] = useState(false);
+    const [winner, setWinner] = useState<string | null>(null);
     const [isItemVisible, setIsItemVisible] = useState(false);
+    const [isHintVisible, setIsHintVisible] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [totalParticipants, setTotalParticipants] = useState<number>(0);
 
-    const handleTimerComplete = () => {
+    const handleTimerComplete = async () => {
         setIsTimerComplete(true);
+        await fetchWinner();
+        await selectRandomWinner();
     };
 
     const showPopup = () => {
@@ -112,27 +113,140 @@ export default function Giveaway() {
         setIsPopupVisible(false);
     };
 
-    const handleMouseEnter = () => setIsItemVisible(true);
-    const handleMouseLeave = () => setIsItemVisible(false);
+    const handleMouseEnterItem = () => setIsItemVisible(true);
+    const handleMouseLeaveItem = () => setIsItemVisible(false);
+    const handleMouseEnterHint = () => setIsHintVisible(true);
+    const handleMouseLeaveHint = () => setIsHintVisible(false);
     const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
         setMousePosition({ x: event.clientX, y: event.clientY });
     };
 
     useEffect(() => {
         document.title = '🎉추첨 - 라테일 [평등] 길드';
-        const countdownTimeRef = database.ref('countdownTime');
+        fetchWinner();
+        getTotalParticipants();
 
-        // 올바른 이벤트 리스너 해제 방법 사용
-        const onValueChange = (snapshot: firebase.database.DataSnapshot) => {
-            const value = snapshot.val();
-            setCountdownTime(value);
+        const participantsRef = databaseRef(database, 'participants');
+        const unsubscribe = onValue(participantsRef, (snapshot) => {
+            const participants = snapshot.val();
+            setTotalParticipants(participants ? Object.keys(participants).length : 0);
+        });
+
+        return () => {
+            unsubscribe();
         };
-        countdownTimeRef.on('value', onValueChange);
-
-        return () => countdownTimeRef.off('value', onValueChange);
     }, []);
 
+    const winRate = totalParticipants > 0 ? (1 / totalParticipants) * 100 : 0;
 
+    const handleEnterNow = async () => {
+        const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+        const accessKeyInput = (document.getElementById('access') as HTMLInputElement).value;
+
+        if (!user.nickname) {
+            alert('로그인이 필요한 컨텐츠입니다.');
+            return;
+        }
+
+        if (!accessKeyInput) {
+            alert('Access Key를 입력해 주세요.');
+            return;
+        }
+
+        try {
+            const accessKeyRef = databaseRef(database, 'AccessKey');
+            const accessKeySnapshot = await get(accessKeyRef);
+            const storedAccessKey = accessKeySnapshot.val();
+
+            if (accessKeyInput !== storedAccessKey) {
+                alert('잘못된 Access Key입니다.');
+                return;
+            }
+
+            const participantsRef = databaseRef(database, 'participants');
+            const snapshot = await get(participantsRef);
+            const participants = snapshot.val() || {};
+
+            for (const id in participants) {
+                if (participants[id].nickname === user.nickname) {
+                    alert('이미 참여한 기록이 있습니다.');
+                    return;
+                }
+            }
+
+            const newParticipantId = Object.keys(participants).length + 1;
+            const TotalParticipant = Object.keys(participants).length
+            const winRate = TotalParticipant > 0 ? (1 / TotalParticipant) * 100 : 0;
+
+            await set(databaseRef(database, `participants/${newParticipantId}`), {
+                nickname: user.nickname
+            });
+
+            alert('참여 명단에 추가되었습니다.');
+        } catch (error) {
+            console.error('Error saving username:', error);
+        }
+    };
+
+    const selectRandomWinner = async () => {
+        try {
+            const winnerRef = databaseRef(database, 'winner');
+            const winnerSnapshot = await get(winnerRef);
+            const existingWinner = winnerSnapshot.val();
+
+            if (existingWinner) {
+                setWinner(existingWinner.nickname);
+                return;
+            }
+
+            const participantsRef = databaseRef(database, 'participants');
+            const snapshot = await get(participantsRef);
+            const participants = snapshot.val();
+
+            if (!participants) {
+                alert('참여자가 없습니다.');
+                return;
+            }
+
+            const participantIds = Object.keys(participants);
+            const randomIndex = Math.floor(Math.random() * participantIds.length);
+            const winnerId = participantIds[randomIndex];
+
+            const selectedWinner = participants[winnerId].nickname;
+            await set(databaseRef(database, 'winner'), {
+                nickname: selectedWinner
+            });
+
+            setWinner(selectedWinner);
+        } catch (error) {
+            console.error('Error selecting random winner:', error);
+        }
+    };
+
+    const fetchWinner = async () => {
+        try {
+            const winnerRef = databaseRef(database, 'winner');
+            const snapshot = await get(winnerRef);
+            const winnerData = snapshot.val();
+
+            if (winnerData) {
+                setWinner(winnerData.nickname);
+            }
+        } catch (error) {
+            console.error('Error fetching winner:', error);
+        }
+    };
+
+    const getTotalParticipants = async () => {
+        try {
+            const participantsRef = databaseRef(database, 'participants');
+            const snapshot = await get(participantsRef);
+            const participants = snapshot.val();
+            setTotalParticipants(participants ? Object.keys(participants).length : 0);
+        } catch (error) {
+            console.error('Error fetching total participants:', error);
+        }
+    };
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
@@ -156,7 +270,7 @@ export default function Giveaway() {
                     showPopup={showPopup}
                 />
             )}
-            <div className="flex flex-col flex-1 items-center justify-center"> {/* 나머지 페이지 내용 */}
+            <div className="flex flex-col flex-1 items-center justify-center">
                 <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
             </div>
             <div
@@ -174,9 +288,12 @@ export default function Giveaway() {
                             {!isTimerComplete && (
                                 <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative">
                                     <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                    <CountdownTimer endTimeStr="2024-05-17 15:15:01" onComplete={handleTimerComplete} />
+                                    <CountdownTimer endTimeStr="2024-05-22 22:00:00" onComplete={handleTimerComplete} />
                                     <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
-                                        <span>Test Mode : Access Denied</span>
+                                        <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
+                                        <div className="flex flex-col text-sm items-center justify-center mt-4">
+                                            <AutoFont text='여러 계정으로 참여 사실이 있을 시, 무효 처리됩니다.'></AutoFont>
+                                        </div>
                                     </div>
                                 </div>
                             )}
@@ -188,13 +305,14 @@ export default function Giveaway() {
                                     <Confetti />
                                     <h2 className={`${afacad.className} text-2xl md:text-3xl pointer-events-none user-select-none font-bold mb-4`}>Congratulations!</h2>
                                     <div className="flex items-center space-x-6 text-5xl font-bold">
-                                        <div className={`${afacad.className} flex flex-col pointer-events-none user-select-none items-center`}>
-                                            <span>Oryx</span>
+                                        <div className="flex flex-col pointer-events-none user-select-none items-center">
+                                            <span>
+                                                <AutoFont text={`${winner}`} />
+                                            </span>
                                             <span className={`${afacad.className} text-lg pointer-events-none user-select-none font-normal`}>Winner</span>
                                         </div>
                                     </div>
-                                    <div className={`${afacad.className} mt-8 text-2xl pointer-events-none user-select-none font-bold`}>
-                                        <span>Test Mode : Access Denied</span>
+                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
                                     </div>
                                 </div>
                             )}
@@ -202,17 +320,17 @@ export default function Giveaway() {
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Oryx&apos;s Giveaway</h2>
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
-                                        onMouseEnter={handleMouseEnter}
-                                        onMouseLeave={handleMouseLeave}
+                                        onMouseEnter={handleMouseEnterItem}
+                                        onMouseLeave={handleMouseLeaveItem}
                                         onMouseMove={handleMouseMove}
                                     >
                                         <Image alt="Prize" src="prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
                                     </div>
                                     <div>
                                         <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
-                                            로얄 상자
+                                            <AutoFont text='로얄 상자'></AutoFont>
                                         </h3>
-                                        <p className={`${afacad.className} text-white`}>x30</p>
+                                        <p className={`${afacad.className} text-white`}>x10</p>
                                     </div>
                                     {isItemVisible && (
                                         <div
@@ -230,19 +348,52 @@ export default function Giveaway() {
                                 </div>
                                 <div className="space-y-4 w-full">
                                     <div className="space-y-2">
-                                        <label htmlFor="nickname" className={`${afacad.className} block text-sm font-medium text-gray-700`}>
-                                            Nickname
+                                        <label htmlFor="access" className={`${afacad.className} block text-sm font-medium text-gray-700`}>
+                                            Access Key
                                         </label>
                                         <input
-                                            id="nickname"
-                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                            placeholder="Enter your nickname"
+                                            id="access"
+                                            className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                                            placeholder="Access Key는 특수한 경로로 얻을 수 있습니다."
+                                            style={{
+                                                fontFamily: `${afacad.style.fontFamily}, ${do_Hyeon.style.fontFamily}`,
+                                            }}
                                         />
+                                        <style jsx>{`
+                                            .placeholder-custom::placeholder {
+                                            font-family: ${afacad.style.fontFamily}, ${do_Hyeon.style.fontFamily};
+                                            }
+                                    `}</style>
                                     </div>
-                                    <button
-                                        className={`${afacad.className}w-30 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}>
-                                        Enter Now
-                                    </button>
+                                    <div className="flex space-x-8">
+                                        <div
+                                            onMouseEnter={handleMouseEnterHint}
+                                            onMouseLeave={handleMouseLeaveHint}
+                                            onMouseMove={handleMouseMove}
+                                            className={`${afacad.className} text-center w-1/2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}
+                                        >
+                                            Hint?
+                                        </div>
+                                        {isHintVisible && (
+                                            <div
+                                                style={{
+                                                    position: 'fixed',
+                                                    top: mousePosition.y + 10,
+                                                    left: mousePosition.x + 10,
+                                                    pointerEvents: 'none',
+                                                    zIndex: 1000,
+                                                }}
+                                            >
+                                                <Tooltip.Giveaway_AccessKey01 />
+                                            </div>
+                                        )}
+                                        <button
+                                            onClick={handleEnterNow}
+                                            className={`${afacad.className} w-1/2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}
+                                        >
+                                            Enter!
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -294,5 +445,4 @@ function ScaleIcon(props: SVGProps<SVGSVGElement>) {
             </g>
         </svg>
     );
-};
-
+}

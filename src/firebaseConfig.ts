@@ -1,5 +1,5 @@
 // firebaseConfig.ts
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 import { getDatabase } from 'firebase/database';
 
@@ -13,7 +13,7 @@ const firebaseConfig = {
     databaseURL: 'https://latale-1d43a-default-rtdb.firebaseio.com',
 };
 
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 const storage = getStorage(app);
 const database = getDatabase(app);
 

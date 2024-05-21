@@ -4,8 +4,8 @@ import { SVGProps } from 'react';
 import Image from 'next/image';
 import React, { useState, useEffect, useRef } from 'react'; // React를 명시적으로 임포트
 import Link from "next/link";
-import Sidebar from '@/components/component/sidebar';
-import PopupImage from '@/components/component/popupImage';
+import Sidebar from '@/components/sidebar';
+import PopupImage from '@/components/popupImage';
 
 //community.tsx
 

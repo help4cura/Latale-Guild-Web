@@ -43,3 +43,7 @@ next-env.d.ts
 Awaken.tsx
 Hidden.tsx
 test.tsx
+
+# firebase
+firebase.json
+firebaseConfig.ts

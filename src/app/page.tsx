@@ -1,5 +1,5 @@
 // page.tsx
-import { _ozma } from "../components/component/ozma";
+import { _ozma } from "../components/ozma";
 
 export default function Home() {
   return (
