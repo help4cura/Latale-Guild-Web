@@ -1,8 +1,5 @@
 "use client";
 
-//ozma.tsx
-
-//Import
 import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
 import Sidebar from './sidebar';
@@ -11,16 +8,15 @@ import { SVGProps } from 'react';
 import Image from 'next/image';
 import RegisterButton from './registerButton';
 
-//Fonts
+// Fonts
 import { Afacad } from 'next/font/google';
 
 const afacad = Afacad({
   subsets: ['latin']
 });
 
-//Component Start
+// Component Start
 export function _ozma() {
-
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -82,9 +78,12 @@ export function _ozma() {
         />
       )}
 
-      <div className="flex flex-col flex-1 items-center justify-center"> {/* 나머지 페이지 내용 */}
+      <div className="flex flex-col flex-1 items-center justify-center">
+        {/* 나머지 페이지 내용 */}
         <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
-        <RegisterButton />
+        <div className="flex items-center space-x-2">
+          <RegisterButton />
+        </div>
         <header className="py-12 z-50">
           <Link className="flex items-center justify-center" href="#">
             <ScaleIcon className="mb-1 w-1 h-10" />
@@ -123,7 +122,7 @@ export function _ozma() {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
 function ScaleIcon(props: SVGProps<SVGSVGElement>) {

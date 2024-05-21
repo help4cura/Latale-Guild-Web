@@ -1,21 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SVGProps } from 'react';
-import Register from '@/components/component/register';
+import Register from './register';
+import Profile from './profile';
 
 export default function RegisterButton() {
     const [isOpen, setOpen] = useState(false);
     const [isFadingOut, setIsFadingOut] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const handleButtonClick = () => {
-        if (isOpen) {
-            setIsFadingOut(true);
-            setTimeout(() => {
+    useEffect(() => {
+        // 세션 스토리지에 'user' 키가 있는지 확인
+        const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
+        if (storedUser.isLogin) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isFadingOut) {
+            const timer = setTimeout(() => {
                 setIsFadingOut(false);
                 setOpen(false);
-            }, 500); // 애니메이션 지속 시간과 일치하도록 조정 (0.5s)
+            }, 500);
+
+            return () => clearTimeout(timer);
+        }
+    }, [isFadingOut]);
+
+    const handleButtonClick = () => {
+
+        if (isOpen && !isFadingOut) {
+            setIsFadingOut(true);
         } else {
             setOpen(true);
         }
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('user');
+        setIsLoggedIn(false);
+        setOpen(false);
     };
 
     return (
@@ -30,7 +54,7 @@ export default function RegisterButton() {
                 </button>
                 {(isOpen || isFadingOut) && (
                     <div className={`absolute mt-2 right-0 ${isFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'}`}>
-                        <Register />
+                        {isLoggedIn ? <Profile onLogout={handleLogout} /> : <Register />}
                     </div>
                 )}
             </div>
