@@ -365,7 +365,7 @@ export default function Giveaway() {
                                 </div>
                             )}
                             <div className="p-8 flex flex-col items-center justify-center">
-                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>{nickname}'s Giveaway</h2> {/* 닉네임 */}
+                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>{nickname}&apos;s Giveaway</h2> {/* 닉네임 */}
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
                                         onMouseEnter={handleMouseEnterItem}
