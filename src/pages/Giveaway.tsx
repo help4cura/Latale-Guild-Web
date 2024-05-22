@@ -364,9 +364,7 @@ export default function Giveaway() {
                                     <div className={`${afacad.className} mt-8 text-2xl font-bold`}></div>
                                 </div>
                             )}
-                            <div className="p-8 flex flex-col items-center justify-center"
-                                onMouseDown={(e) => e.preventDefault()}
-                            >
+                            <div className="p-8 flex flex-col items-center justify-center">
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>{nickname}'s Giveaway</h2> {/* 닉네임 */}
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
@@ -407,6 +405,7 @@ export default function Giveaway() {
                                             placeholder="Access Key는 특수한 경로로 얻을 수 있습니다."
                                             style={{
                                                 fontFamily: `${afacad.style.fontFamily}, ${do_Hyeon.style.fontFamily}`,
+                                                pointerEvents: 'auto'  // pointer-events: none; 가 아닌 auto로 설정
                                             }}
                                         />
                                         <style jsx>{`
