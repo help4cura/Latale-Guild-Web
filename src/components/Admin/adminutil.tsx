@@ -99,7 +99,7 @@ const AdminUtil: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <h1 className="text-3xl font-bold mb-6">Admin</h1>
+            <h1 className="text-3xl font-bold mb-6">Giveaway Settings</h1>
             <div className="bg-white p-6 rounded-lg shadow-md w-96">
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">Current End Date</label>
@@ -178,7 +178,7 @@ const AdminUtil: React.FC = () => {
                         value={newAccessKey}
                         onChange={handleAccessKeyChange}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="Access Key"
+                        placeholder="'' is none."
                     />
                 </div>
                 <button

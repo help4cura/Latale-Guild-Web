@@ -171,7 +171,7 @@ export default function Giveaway() {
         };
     }, []);
 
-    const winRate = totalParticipants > 0 ? (1 / totalParticipants) * 100 : 0;
+    const winRate = totalParticipants > 0 ? (1 / (totalParticipants + 1)) * 100 : 0;
 
     const handleEnterNow = async () => {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
