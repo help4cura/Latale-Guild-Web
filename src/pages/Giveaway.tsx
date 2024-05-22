@@ -100,6 +100,38 @@ export default function Giveaway() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [totalParticipants, setTotalParticipants] = useState<number>(0);
     const [winnerProfileImage, setWinnerProfileImage] = useState<string | null>(null);
+    const [endTimeStr, setEndTimeStr] = useState<string>("");
+    const [prizeCount, setPrizeCount] = useState<number>(10); // 초기 개수 값
+    const [nickname, setNickname] = useState<string>("Oryx"); // 초기 닉네임 값
+
+    const fetchEndDate = async () => {
+        try {
+            const endDateRef = databaseRef(database, 'endDate');
+            const snapshot = await get(endDateRef);
+            const endDate = snapshot.val();
+            setEndTimeStr(endDate);
+        } catch (error) {
+            console.error('Error fetching endDate:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchEndDate();
+
+        const prizeCountRef = databaseRef(database, 'prizeCount');
+        onValue(prizeCountRef, (snapshot) => {
+            const prizeCount = snapshot.val();
+            setPrizeCount(prizeCount);
+        });
+
+        const nicknameRef = databaseRef(database, 'nickname');
+        onValue(nicknameRef, (snapshot) => {
+            const nickname = snapshot.val();
+            setNickname(nickname);
+        });
+    }, []);
+
+
 
     const handleTimerComplete = async () => {
         setIsTimerComplete(true);
@@ -299,12 +331,12 @@ export default function Giveaway() {
                     </h1>
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            {!isTimerComplete && (
+                            {!isTimerComplete && endTimeStr && (
                                 <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative"
                                     onMouseDown={(e) => e.preventDefault()} // 마우스로 요소를 잡는 행위 자체를 방지
                                 >
                                     <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                    <CountdownTimer endTimeStr="2024-05-22 20:30:30" onComplete={handleTimerComplete} />
+                                    <CountdownTimer endTimeStr={endTimeStr} onComplete={handleTimerComplete} />
                                     <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
                                         <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
                                         <div className="flex flex-col text-sm items-center justify-center mt-4">
@@ -335,7 +367,7 @@ export default function Giveaway() {
                             <div className="p-8 flex flex-col items-center justify-center"
                                 onMouseDown={(e) => e.preventDefault()}
                             >
-                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Oryx&apos;s Giveaway</h2>
+                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>{nickname}'s Giveaway</h2> {/* 닉네임 */}
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
                                         onMouseEnter={handleMouseEnterItem}
@@ -348,7 +380,7 @@ export default function Giveaway() {
                                         <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
                                             <AutoFont text='로얄 상자'></AutoFont>
                                         </h3>
-                                        <p className={`${afacad.className} text-white`}>x10</p>
+                                        <p className={`${afacad.className} text-white`}>x{prizeCount}</p> {/* 개수 */}
                                     </div>
                                     {isItemVisible && (
                                         <div
