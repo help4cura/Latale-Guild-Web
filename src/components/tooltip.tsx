@@ -142,8 +142,8 @@ export function Item2() {
 }
 
 export function Giveaway_AccessKey01() {
-    const targetDate = new Date('2024-05-22T16:30:00+09:00');
-    const { message } = useServerTime(targetDate);
+    //const targetDate = new Date('2024-05-22T16:30:00+09:00');
+    //const { message } = useServerTime(targetDate);
 
     return (
         <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
@@ -151,7 +151,8 @@ export function Giveaway_AccessKey01() {
                 Access Key
             </div>
             <div className="font-gulim text-12px text-gray-600">
-                {message}
+                {/*{message}*/}
+                Access Key : Good Luck!
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
 
     const parseServerTime = (serverTimeString: string): Date | null => {
         try {
-            console.log(`Raw server time string: "${serverTimeString}"`);
+            //console.log(`Raw server time string: "${serverTimeString}"`);
             if (!serverTimeString) {
                 throw new Error('Server time string is undefined');
             }
@@ -21,7 +21,7 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
             // "2024. 5. 22. 오후 12:24:30" 형식을 처리
             const isPM = serverTimeString.includes('오후');
             const dateTimeString = serverTimeString.replace('오전 ', '').replace('오후 ', '');
-            console.log(`Processed dateTimeString: "${dateTimeString}"`);
+            //console.log(`Processed dateTimeString: "${dateTimeString}"`);
 
             const datePattern = /(\d{4})\. (\d{1,2})\. (\d{1,2})\./;
             const timePattern = /(\d{1,2}):(\d{2}):(\d{2})/;
@@ -40,8 +40,8 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
             const minute = Number(timeMatch[2]);
             const second = Number(timeMatch[3]);
 
-            console.log(`Parsed date - Year: ${year}, Month: ${month}, Day: ${day}`);
-            console.log(`Parsed time - Hour: ${hour}, Minute: ${minute}, Second: ${second}`);
+            //console.log(`Parsed date - Year: ${year}, Month: ${month}, Day: ${day}`);
+            //console.log(`Parsed time - Hour: ${hour}, Minute: ${minute}, Second: ${second}`);
 
             let adjustedHour = hour;
             if (isPM && hour !== 12) {
@@ -49,32 +49,32 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
             } else if (!isPM && hour === 12) {
                 adjustedHour = 0;
             }
-            console.log(`Adjusted hour: ${adjustedHour}`);
+            //console.log(`Adjusted hour: ${adjustedHour}`);
 
             const parsedDate = new Date(year, month - 1, day, adjustedHour, minute, second);
-            console.log(`Parsed Date object: ${parsedDate.toString()}`);
+            //console.log(`Parsed Date object: ${parsedDate.toString()}`);
             return parsedDate;
         } catch (error) {
-            console.error('Error parsing server time:', error);
+            //console.error('Error parsing server time:', error);
             return null;
         }
     };
 
     const checkDate = useCallback((currentServerTime: Date) => {
-        console.log("checkDate function called");
+        //console.log("checkDate function called");
         if (currentServerTime) {
             const now = currentServerTime;
-            console.log(`Current server time: ${now.toString()}`);
-            console.log(`Target time: ${targetDate.toString()}`);
-            console.log(`Current server time >= Target time: ${now >= targetDate}`);
+            //console.log(`Current server time: ${now.toString()}`);
+            //console.log(`Target time: ${targetDate.toString()}`);
+            //console.log(`Current server time >= Target time: ${now >= targetDate}`);
             if (now >= targetDate) {
-                console.log("Setting message to 'Good Luck!'");
+                //console.log("Setting message to 'Good Luck!'");
                 setMessage('Access Key : Good Luck!');
             } else {
                 setMessage('2024-05-22 16:30에 공개 됩니다.');
             }
         } else {
-            console.log("Server time is null");
+            //console.log("Server time is null");
         }
     }, [targetDate]);
 
@@ -82,10 +82,10 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
         const fetchServerTime = async () => {
             try {
                 const response = await axios.get<{ serverTime: string }>('https://us-central1-latale-1d43a.cloudfunctions.net/getServerTime');
-                console.log('Server response:', response.data);
+                //console.log('Server response:', response.data);
                 const serverTimeString = response.data.serverTime;
                 const serverDate = parseServerTime(serverTimeString);
-                console.log(`Fetched server time: ${serverDate?.toString()}`);
+                //console.log(`Fetched server time: ${serverDate?.toString()}`);
                 setServerTime(serverDate);
 
                 if (serverDate) {
