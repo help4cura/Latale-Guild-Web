@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 interface UseServerTimeResult {
@@ -60,7 +60,7 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
         }
     };
 
-    const checkDate = (currentServerTime: Date) => {
+    const checkDate = useCallback((currentServerTime: Date) => {
         console.log("checkDate function called");
         if (currentServerTime) {
             const now = currentServerTime;
@@ -76,7 +76,7 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
         } else {
             console.log("Server time is null");
         }
-    };
+    }, [targetDate]);
 
     useEffect(() => {
         const fetchServerTime = async () => {
@@ -104,16 +104,15 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
         return () => {
             clearInterval(interval);
         };
-    }, []);
+    }, [checkDate]);
 
     useEffect(() => {
         if (serverTime) {
             checkDate(serverTime)
         }
-    }, [serverTime]);
+    }, [serverTime, checkDate]);
 
     return { message, serverTime };
 };
 
 export default useServerTime;
-
