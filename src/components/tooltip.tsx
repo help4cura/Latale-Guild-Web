@@ -1,3 +1,7 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import useServerTime from './useServerTime';
+
 const statInfo: { [key: number]: string } = {
     26: '체력',
     30: '최대HP',
@@ -138,14 +142,16 @@ export function Item2() {
 }
 
 export function Giveaway_AccessKey01() {
+    const targetDate = new Date('2024-05-22T16:30:00+09:00');
+    const { message } = useServerTime(targetDate);
+
     return (
         <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 Access Key
             </div>
-
             <div className="font-gulim text-12px text-gray-600">
-                2024-05-22 16:30에 공개 됩니다.
+                {message}
             </div>
         </div>
     );
@@ -175,8 +181,6 @@ export function Skill_Awaken_1() {
             <div className="font-gulim text-12px text-black">
                 [ 1 슬롯 ]
             </div>
-
-
         </div>
     );
 }

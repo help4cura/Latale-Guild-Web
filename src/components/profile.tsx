@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { storage, database } from '../firebaseConfig'; // Firebase 초기화 파일을 가져옴
+import React, { useState, useEffect, useRef } from 'react';
+import { storage, database } from '../firebaseConfig';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { ref as databaseRef, get, set } from 'firebase/database';
 import AutoFont from './autofont';
+import ProfileImage from './profileImage';
 import Image from 'next/image';
 
 interface ProfileProps {
@@ -15,6 +16,7 @@ export default function Profile({ onLogout }: ProfileProps) {
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const [userId, setUserId] = useState<string | null>(null);
     const [adminLevel, setAdminLevel] = useState<number>(0);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
@@ -31,7 +33,6 @@ export default function Profile({ onLogout }: ProfileProps) {
         }
 
         if (storedUser.username) {
-            // 사용자 ID를 찾기 위한 추가 데이터베이스 조회
             const usersRef = databaseRef(database, 'users');
             get(usersRef).then((snapshot) => {
                 const users = snapshot.val() || {};
@@ -39,7 +40,6 @@ export default function Profile({ onLogout }: ProfileProps) {
                     if (users[key].username === storedUser.username) {
                         setUserId(key);
 
-                        // adminLevel 및 profileURL 가져오기
                         const userRef = databaseRef(database, `users/${key}`);
                         get(userRef).then((snapshot) => {
                             const userData = snapshot.val();
@@ -61,6 +61,7 @@ export default function Profile({ onLogout }: ProfileProps) {
             });
         }
     }, []);
+
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0] && userId) {
             const file = event.target.files[0];
@@ -93,30 +94,23 @@ export default function Profile({ onLogout }: ProfileProps) {
         }
     };
 
+    const handleProfileImageClick = () => {
+        fileInputRef.current?.click();
+    };
+
     return (
         <div className="bg-white p-4 rounded-lg shadow-md mx-auto">
             <div className="flex flex-col items-center pb-4">
-                <div className="relative">
-                    <div className="w-12 h-12 rounded-full border border-gray-300 bg-gray-100 flex items-center justify-center overflow-hidden">
-                        {profileImage ? (
-                            <div className="relative w-full h-full">
-                                <Image
-                                    src={profileImage || '/defaultProfileImage.png'} // 기본 이미지 제공
-                                    alt="Profile"
-                                    className="object-cover"
-                                    layout="fill" // 적절한 레이아웃 설정
-                                    objectFit="cover" // 적절한 객체 맞추기 설정
-                                />
-                            </div>
-                        ) : null}
-                    </div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
+                <div onClick={handleProfileImageClick}>
+                    <ProfileImage profileImage={profileImage} />
                 </div>
+                <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handleImageUpload}
+                    className="hidden"
+                />
                 <div className="relative inline-flex items-center mt-4 whitespace-nowrap">
                     <h3 className="text-2xl text-black font-semibold">
                         <AutoFont text="환영합니다," />

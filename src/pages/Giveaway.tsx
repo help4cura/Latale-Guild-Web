@@ -10,6 +10,7 @@ import Link from "next/link";
 import Sidebar from '@/components/sidebar';
 import PopupImage from '@/components/popupImage';
 import * as Tooltip from "@/components/tooltip";
+import ProfileImage from '@/components/profileImage';
 
 import Confetti from '@/components/confetti';
 
@@ -98,6 +99,7 @@ export default function Giveaway() {
     const [isHintVisible, setIsHintVisible] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [totalParticipants, setTotalParticipants] = useState<number>(0);
+    const [winnerProfileImage, setWinnerProfileImage] = useState<string | null>(null);
 
     const handleTimerComplete = async () => {
         setIsTimerComplete(true);
@@ -231,6 +233,18 @@ export default function Giveaway() {
 
             if (winnerData) {
                 setWinner(winnerData.nickname);
+
+                // 승자의 프로필 이미지 URL 가져오기
+                const usersRef = databaseRef(database, 'users');
+                get(usersRef).then((snapshot) => {
+                    const users = snapshot.val() || {};
+                    for (const key in users) {
+                        if (users[key].nickname === winnerData.nickname) {
+                            setWinnerProfileImage(users[key].profileURL);
+                            break;
+                        }
+                    }
+                });
             }
         } catch (error) {
             console.error('Error fetching winner:', error);
@@ -286,9 +300,11 @@ export default function Giveaway() {
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
                             {!isTimerComplete && (
-                                <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative">
+                                <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative"
+                                    onMouseDown={(e) => e.preventDefault()} // 마우스로 요소를 잡는 행위 자체를 방지
+                                >
                                     <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                    <CountdownTimer endTimeStr="2024-05-22 22:00:00" onComplete={handleTimerComplete} />
+                                    <CountdownTimer endTimeStr="2024-05-22 20:30:30" onComplete={handleTimerComplete} />
                                     <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
                                         <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
                                         <div className="flex flex-col text-sm items-center justify-center mt-4">
@@ -304,19 +320,21 @@ export default function Giveaway() {
                                 >
                                     <Confetti />
                                     <h2 className={`${afacad.className} text-2xl md:text-3xl pointer-events-none user-select-none font-bold mb-4`}>Congratulations!</h2>
-                                    <div className="flex items-center space-x-6 text-5xl font-bold">
-                                        <div className="flex flex-col pointer-events-none user-select-none items-center">
+                                    <div className="flex flex-col items-center justify-center text-5xl font-bold">
+                                        <ProfileImage profileImage={winnerProfileImage} />
+                                        <div className="flex flex-col items-center justify-center pointer-events-none user-select-none mt-2">
                                             <span>
                                                 <AutoFont text={`${winner}`} />
                                             </span>
                                             <span className={`${afacad.className} text-lg pointer-events-none user-select-none font-normal`}>Winner</span>
                                         </div>
                                     </div>
-                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
-                                    </div>
+                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}></div>
                                 </div>
                             )}
-                            <div className="p-8 flex flex-col items-center justify-center">
+                            <div className="p-8 flex flex-col items-center justify-center"
+                                onMouseDown={(e) => e.preventDefault()}
+                            >
                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Oryx&apos;s Giveaway</h2>
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"

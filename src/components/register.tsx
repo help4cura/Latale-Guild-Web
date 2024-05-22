@@ -170,59 +170,89 @@ export default function Register() {
     const handleLogout = async () => {
         try {
             const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
-            if (storedUser.username) {
-                const usersRef = databaseRef(database, 'users');
-                const snapshot = await get(usersRef);
-                const users = snapshot.val() || {};
-
-                let userId = '';
-                for (const key in users) {
-                    const currentUser = users[key];
-                    if (currentUser.username === storedUser.username) {
-                        userId = key;
-                        break;
-                    }
-                }
-
-                if (userId) {
-                    await update(databaseRef(database, `users/${userId}`), { isLogin: false });
-                    sessionStorage.removeItem('user');
-                    setFormData({
-                        username: '',
-                        password: '',
-                        email: '',
-                        nickname: '',
-                        admin: false,
-                        adminLevel: 0,
-                        isLogin: false,
-                        profileURL: '',
-                    });
-                    alert('로그아웃 성공');
-                } else {
-                    console.error('User ID not found');
-                    alert('로그아웃 오류: 사용자 정보를 찾을 수 없습니다.');
-                }
-            } else {
+            if (!storedUser.username) {
                 console.error('No stored user found');
                 alert('로그아웃 오류: 저장된 사용자 정보를 찾을 수 없습니다.');
+                return;
             }
+
+            const usersRef = databaseRef(database, 'users');
+            const snapshot = await get(usersRef);
+            const users = snapshot.val() || {};
+
+            let userId = '';
+            for (const key in users) {
+                const currentUser = users[key];
+                if (currentUser.username === storedUser.username) {
+                    userId = key;
+                    break;
+                }
+            }
+
+            if (!userId) {
+                console.error('User ID not found');
+                alert('로그아웃 오류: 사용자 정보를 찾을 수 없습니다.');
+                return;
+            }
+
+            await update(databaseRef(database, `users/${userId}`), { isLogin: false });
+            sessionStorage.removeItem('user');
+            setFormData({
+                username: '',
+                password: '',
+                email: '',
+                nickname: '',
+                admin: false,
+                adminLevel: 0,
+                isLogin: false,
+                profileURL: '',
+            });
+            alert('로그아웃 성공');
         } catch (error) {
             console.error('Error during logout:', error);
             alert('로그아웃 오류가 발생했습니다.');
         }
     };
 
+
     useEffect(() => {
-        const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
-        if (storedUser.isLogin) {
-            setFormData(prevFormData => ({
-                ...prevFormData,
-                username: storedUser.username,
-                nickname: storedUser.nickname,
-                admin: storedUser.admin,
-                isLogin: storedUser.isLogin
-            }));
-        }
+        const syncUserInfo = async () => {
+            const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
+            if (storedUser.username) {
+                const usersRef = databaseRef(database, 'users');
+                const snapshot = await get(usersRef);
+                const users = snapshot.val() || {};
+
+                let userId = '';
+                let user = null;
+                for (const key in users) {
+                    if (users[key].username === storedUser.username) {
+                        userId = key;
+                        user = users[key];
+                        break;
+                    }
+                }
+
+                if (user) {
+                    sessionStorage.setItem('user', JSON.stringify({
+                        username: user.username,
+                        nickname: user.nickname,
+                        admin: user.admin,
+                        isLogin: user.isLogin
+                    }));
+
+                    setFormData(prevFormData => ({
+                        ...prevFormData,
+                        username: user.username,
+                        nickname: user.nickname,
+                        admin: user.admin,
+                        isLogin: user.isLogin
+                    }));
+                }
+            }
+        };
+
+        syncUserInfo();
     }, []);
 
     return (
