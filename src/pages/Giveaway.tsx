@@ -378,7 +378,7 @@ export default function Giveaway() {
                                         onMouseLeave={handleMouseLeaveItem}
                                         onMouseMove={handleMouseMove}
                                     >
-                                        <Image alt="Prize" src="Prize/prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
+                                        <Image alt="Prize" src="prize/prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
                                     </div>
                                     <div>
                                         <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
