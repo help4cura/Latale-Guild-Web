@@ -1,4 +1,6 @@
+// AdminUtil.tsx
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { database } from '@/firebaseConfig';
 import { ref as databaseRef, get, set } from 'firebase/database';
 
@@ -11,36 +13,48 @@ const AdminUtil: React.FC = () => {
     const [newNickname, setNewNickname] = useState<string>("");
     const [accessKey, setAccessKey] = useState<string>("");
     const [newAccessKey, setNewAccessKey] = useState<string>("");
+    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+
+    const router = useRouter();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const checkAdminAccess = async () => {
             try {
+                const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+                if (!user.admin) {
+                    alert('접속할 수 있는 권한이 없습니다.');
+                    router.push('/');  // replace '/login' with the appropriate path
+                    return;
+                }
+
+                setIsAuthorized(true);
+
                 const endDateRef = databaseRef(database, 'endDate');
                 const endDateSnapshot = await get(endDateRef);
-                const endDate = endDateSnapshot.val();
-                setEndDate(endDate);
+                setEndDate(endDateSnapshot.val());
 
                 const prizeCountRef = databaseRef(database, 'prizeCount');
                 const prizeCountSnapshot = await get(prizeCountRef);
-                const prizeCount = prizeCountSnapshot.val();
-                setPrizeCount(prizeCount);
+                setPrizeCount(prizeCountSnapshot.val());
 
                 const nicknameRef = databaseRef(database, 'nickname');
                 const nicknameSnapshot = await get(nicknameRef);
-                const nickname = nicknameSnapshot.val();
-                setNickname(nickname);
+                setNickname(nicknameSnapshot.val());
 
                 const accessKeyRef = databaseRef(database, 'AccessKey');
                 const accessKeySnapshot = await get(accessKeyRef);
-                const accessKey = accessKeySnapshot.val();
-                setAccessKey(accessKey);
+                setAccessKey(accessKeySnapshot.val());
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
-        fetchData();
-    }, []);
+        checkAdminAccess();
+    }, [router]);
+
+    if (!isAuthorized) {
+        return null; // 빈 화면을 표시
+    }
 
     const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewEndDate(e.target.value);
@@ -135,7 +149,7 @@ const AdminUtil: React.FC = () => {
                     <input
                         id="newPrizeCount"
                         type="number"
-                        value={newPrizeCount === 0 ? '' : newPrizeCount} // 빈 값일 경우 placeholder 표시
+                        value={newPrizeCount === 0 ? '' : newPrizeCount}
                         onChange={handlePrizeCountChange}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder='0'
@@ -158,7 +172,6 @@ const AdminUtil: React.FC = () => {
                         value={newNickname}
                         onChange={handleNicknameChange}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="Nickname"
                     />
                 </div>
                 <div className="mb-4">
@@ -178,14 +191,13 @@ const AdminUtil: React.FC = () => {
                         value={newAccessKey}
                         onChange={handleAccessKeyChange}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="'' is none."
                     />
                 </div>
                 <button
                     onClick={handleSave}
-                    className="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                    Save
+                    Save Changes
                 </button>
             </div>
         </div>
