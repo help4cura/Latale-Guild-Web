@@ -1,7 +1,7 @@
 // _app.js
 import { Afacad } from 'next/font/google';
 import 'tailwindcss/tailwind.css';
-import '../../src/app/globals.css';
+//import '../../src/app/globals.css';
 
 // If loading a variable font, you don't need to specify the font weight
 const afacad = Afacad({ subsets: ['latin'] })

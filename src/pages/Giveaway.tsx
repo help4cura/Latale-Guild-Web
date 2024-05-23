@@ -11,6 +11,7 @@ import Sidebar from '@/components/sidebar';
 import PopupImage from '@/components/Util/popupImage';
 import * as Tooltip from "@/components/tooltip";
 import ProfileImage from '@/components/Util/profileImage';
+import classNames from 'classnames';
 
 import Confetti from '@/components/Util/confetti';
 
@@ -333,12 +334,12 @@ export default function Giveaway() {
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
                             {isLoading ? (
-                                <div className="common-bg-style">
+                                <div className={classNames(commonStyle)}>
                                     <div className={`${afacad.className} text-2xl font-bold`}>Loading...</div>
                                 </div>
                             ) : (
                                 <>
-                                    <div className={"common-bg-style"} onMouseDown={(e) => e.preventDefault()}>
+                                    <div className={classNames(commonStyle)} onMouseDown={(e) => e.preventDefault()}>
                                         {!isTimerComplete ? (
                                             <>
                                                 <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
