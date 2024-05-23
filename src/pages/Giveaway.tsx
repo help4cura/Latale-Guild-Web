@@ -348,6 +348,7 @@ export default function Giveaway() {
                                                     <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
                                                     <div className="flex flex-col text-sm items-center justify-center mt-4">
                                                         <AutoFont text='여러 계정으로 참여 사실이 있을 시, 무효 처리됩니다.'></AutoFont>
+                                                        <AutoFont text='길드 기여도 가산 : 미적용'></AutoFont>
                                                     </div>
                                                 </div>
                                             </>
