@@ -83,7 +83,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
                 <span>{minutes}</span>
                 <span className={`${afacad.className} text-lg font-normal`}>Minutes</span>
             </div>
-            <div className={`${afacad.className} flex flex-col items_center`}>
+            <div className={`${afacad.className} flex flex-col items-center`}>
                 <span>{seconds}</span>
                 <span className={`${afacad.className} text-lg font-normal`}>Seconds</span>
             </div>

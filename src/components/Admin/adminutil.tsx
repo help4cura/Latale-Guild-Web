@@ -1,8 +1,8 @@
-// AdminUtil.tsx
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { database } from '@/firebaseConfig';
 import { ref as databaseRef, get, set } from 'firebase/database';
+import AutoFont from '../Util/autofont';
 
 const AdminUtil: React.FC = () => {
     const [endDate, setEndDate] = useState<string>("");
@@ -14,6 +14,7 @@ const AdminUtil: React.FC = () => {
     const [accessKey, setAccessKey] = useState<string>("");
     const [newAccessKey, setNewAccessKey] = useState<string>("");
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+    const [participants, setParticipants] = useState<string[]>([]);
 
     const router = useRouter();
 
@@ -44,6 +45,11 @@ const AdminUtil: React.FC = () => {
                 const accessKeyRef = databaseRef(database, 'AccessKey');
                 const accessKeySnapshot = await get(accessKeyRef);
                 setAccessKey(accessKeySnapshot.val());
+
+                const participantsRef = databaseRef(database, 'participants');
+                const participantsSnapshot = await get(participantsRef);
+                const participantsData = participantsSnapshot.val();
+                setParticipants(Object.keys(participantsData).map(key => participantsData[key].nickname));
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -112,11 +118,15 @@ const AdminUtil: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <h1 className="text-3xl font-bold mb-6">Giveaway Settings</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md w-96">
+        <div className="flex items-start justify-center min-h-screen bg-gray-100 p-6">
+            <div className="bg-white p-6 rounded-lg shadow-md w-96 mr-6">
+                <h1 className="text-3xl font-bold mb-6">
+                    <AutoFont text='Giveaway Settings' ></AutoFont>
+                </h1>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Current End Date</label>
+                    <label className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='Current End Date'></AutoFont>
+                    </label>
                     <input
                         type="text"
                         value={endDate}
@@ -125,7 +135,9 @@ const AdminUtil: React.FC = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="newEndDate" className="block text-sm font-medium text-gray-700">New End Date</label>
+                    <label htmlFor="newEndDate" className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='New End Date'></AutoFont>
+                    </label>
                     <input
                         id="newEndDate"
                         type="text"
@@ -136,7 +148,9 @@ const AdminUtil: React.FC = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Current Prize Count</label>
+                    <label className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='Current Prize Count'></AutoFont>
+                    </label>
                     <input
                         type="number"
                         value={prizeCount}
@@ -145,7 +159,9 @@ const AdminUtil: React.FC = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="newPrizeCount" className="block text-sm font-medium text-gray-700">New Prize Count</label>
+                    <label htmlFor="newPrizeCount" className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='New Prize Count'></AutoFont>
+                    </label>
                     <input
                         id="newPrizeCount"
                         type="number"
@@ -156,7 +172,9 @@ const AdminUtil: React.FC = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Current Nickname</label>
+                    <label className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='Current Nickname'></AutoFont>
+                    </label>
                     <input
                         type="text"
                         value={nickname}
@@ -165,17 +183,22 @@ const AdminUtil: React.FC = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="newNickname" className="block text-sm font-medium text-gray-700">New Nickname</label>
+                    <label htmlFor="newNickname" className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='New Nickname'></AutoFont>
+                    </label>
                     <input
                         id="newNickname"
                         type="text"
                         value={newNickname}
                         onChange={handleNicknameChange}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="Nickname"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Current Access Key</label>
+                    <label className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='Current Access Key'></AutoFont>
+                    </label>
                     <input
                         type="text"
                         value={accessKey}
@@ -184,21 +207,37 @@ const AdminUtil: React.FC = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="newAccessKey" className="block text-sm font-medium text-gray-700">New Access Key</label>
+                    <label htmlFor="newAccessKey" className="block text-sm font-medium text-gray-700">
+                        <AutoFont text='New Access Key'></AutoFont>
+                    </label>
                     <input
                         id="newAccessKey"
                         type="text"
                         value={newAccessKey}
                         onChange={handleAccessKeyChange}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="'' is none"
                     />
                 </div>
                 <button
                     onClick={handleSave}
                     className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                    Save Changes
+                    <AutoFont text='Save Changes'></AutoFont>
                 </button>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md w-96">
+                <h2 className="text-3xl font-bold mb-4">
+                    <AutoFont text={`Participants : ${participants.length}`}></AutoFont>
+                </h2>
+                <ul className="list-inside">
+                    {participants.map((participant, index) => (
+                        <li key={index}>
+                            <AutoFont text={`${participant}`} />
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
