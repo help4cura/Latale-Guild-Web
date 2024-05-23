@@ -33,7 +33,7 @@ export default function Community() {
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
             {!isSidebarOpen && (
                 <button
-                    className="fixed top-0 left-0 p-4 z-50"
+                    className="fixed top-0 left-0 p-4"
                     aria-label="Toggle menu"
                     onClick={() => setIsSidebarOpen(true)}
                 >
@@ -54,7 +54,7 @@ export default function Community() {
             <div className="flex flex-col flex-1 items-center justify-center"> {/* 나머지 페이지 내용 */}
                 <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
                 <div className="z-50 w-full max-w-4xl -mt-20 py-2">
-                    <div className="container mx-auto flex flex-col items-center gap-4 px-4 md:px-6">
+                    <div className="container text-black mx-auto flex flex-col items-center gap-4 px-4 md:px-6">
                         <div className="grid gap-2 text-center">
                             <div className="flex flex-col flex-1 items-center justify-center py-2">
                                 <header className="z-50">

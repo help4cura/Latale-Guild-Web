@@ -33,7 +33,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
     const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
 
     useEffect(() => {
-        if (typeof window === "undefined") {
+        if (typeof window === "undefined" || !endTimeStr) {
             return;
         }
 
@@ -88,7 +88,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ endTimeStr, onComplete 
             </div>
         </div>
     );
-}
+};
 
 export default function Giveaway() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -103,6 +103,7 @@ export default function Giveaway() {
     const [endTimeStr, setEndTimeStr] = useState<string>("");
     const [prizeCount, setPrizeCount] = useState<number>(10); // 초기 개수 값
     const [nickname, setNickname] = useState<string>("Oryx"); // 초기 닉네임 값
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const fetchEndDate = async () => {
         try {
@@ -110,8 +111,10 @@ export default function Giveaway() {
             const snapshot = await get(endDateRef);
             const endDate = snapshot.val();
             setEndTimeStr(endDate);
+            setIsLoading(false);  // 데이터를 성공적으로 불러온 후 로딩 상태를 false로 설정
         } catch (error) {
             console.error('Error fetching endDate:', error);
+            setIsLoading(false);  // 에러 발생 시에도 로딩 상태를 false로 설정
         }
     };
 
@@ -130,8 +133,6 @@ export default function Giveaway() {
             setNickname(nickname);
         });
     }, []);
-
-
 
     const handleTimerComplete = async () => {
         setIsTimerComplete(true);
@@ -209,8 +210,6 @@ export default function Giveaway() {
             }
 
             const newParticipantId = Object.keys(participants).length + 1;
-            const TotalParticipant = Object.keys(participants).length
-            const winRate = TotalParticipant > 0 ? (1 / TotalParticipant) * 100 : 0;
 
             await set(databaseRef(database, `participants/${newParticipantId}`), {
                 nickname: user.nickname
@@ -294,6 +293,8 @@ export default function Giveaway() {
         }
     };
 
+    const commonStyle = 'bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative';
+
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
             {!isSidebarOpen && (
@@ -322,7 +323,7 @@ export default function Giveaway() {
             <div
                 key="1"
                 className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-br from-orange-200 via-red-100 to-purple-200 py-12 md:py-24" >
-                <div className="z-50 max-w-4xl px-4 md:px-6">
+                <div className="max-w-4xl px-4 md:px-6">
                     <h1 className={`${afacad.className} text-4xl md:text-6xl font-bold text-white mb-8 text-center`}>
                         <Link className="flex items-center justify-center" href="/">
                             <ScaleIcon className="mb-1 w-1 h-10" />
@@ -331,41 +332,45 @@ export default function Giveaway() {
                     </h1>
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            {!isTimerComplete && endTimeStr && (
-                                <div className="bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative"
-                                    onMouseDown={(e) => e.preventDefault()} // 마우스로 요소를 잡는 행위 자체를 방지
-                                >
-                                    <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
-                                    <CountdownTimer endTimeStr={endTimeStr} onComplete={handleTimerComplete} />
-                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
-                                        <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
-                                        <div className="flex flex-col text-sm items-center justify-center mt-4">
-                                            <AutoFont text='여러 계정으로 참여 사실이 있을 시, 무효 처리됩니다.'></AutoFont>
-                                        </div>
-                                    </div>
+                            {isLoading ? (
+                                <div className="common-bg-style">
+                                    <div className={`${afacad.className} text-2xl font-bold`}>Loading...</div>
                                 </div>
-                            )}
-                            {isTimerComplete && (
-                                <div
-                                    className="bg-[#6B46C1] text-white p-8 flex flex-col items-center user-select-none justify-center relative"
-                                    onMouseDown={(e) => e.preventDefault()} // 마우스로 요소를 잡는 행위 자체를 방지
-                                >
-                                    <Confetti />
-                                    <h2 className={`${afacad.className} text-2xl md:text-3xl pointer-events-none user-select-none font-bold mb-4`}>Congratulations!</h2>
-                                    <div className="flex flex-col items-center justify-center text-5xl font-bold">
-                                        <ProfileImage profileImage={winnerProfileImage} />
-                                        <div className="flex flex-col items-center justify-center pointer-events-none user-select-none mt-2">
-                                            <span>
-                                                <AutoFont text={`${winner}`} />
-                                            </span>
-                                            <span className={`${afacad.className} text-lg pointer-events-none user-select-none font-normal`}>Winner</span>
-                                        </div>
+                            ) : (
+                                <>
+                                    <div className={"common-bg-style"} onMouseDown={(e) => e.preventDefault()}>
+                                        {!isTimerComplete ? (
+                                            <>
+                                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
+                                                <CountdownTimer endTimeStr={endTimeStr} onComplete={handleTimerComplete} />
+                                                <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
+                                                    <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
+                                                    <div className="flex flex-col text-sm items-center justify-center mt-4">
+                                                        <AutoFont text='여러 계정으로 참여 사실이 있을 시, 무효 처리됩니다.'></AutoFont>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Confetti />
+                                                <h2 className={`${afacad.className} text-2xl md:text-3xl pointer-events-none user-select-none font-bold mb-4`}>Congratulations!</h2>
+                                                <div className="flex flex-col items-center justify-center text-5xl font-bold">
+                                                    <ProfileImage profileImage={winnerProfileImage} />
+                                                    <div className="flex flex-col items-center justify-center pointer-events-none user-select-none mt-2">
+                                                        <span>
+                                                            <AutoFont text={`${winner}`} />
+                                                        </span>
+                                                        <span className={`${afacad.className} text-lg pointer-events-none user-select-none font-normal`}>Winner</span>
+                                                    </div>
+                                                </div>
+                                                <div className={`${afacad.className} mt-8 text-2xl font-bold`}></div>
+                                            </>
+                                        )}
                                     </div>
-                                    <div className={`${afacad.className} mt-8 text-2xl font-bold`}></div>
-                                </div>
+                                </>
                             )}
                             <div className="p-8 flex flex-col items-center justify-center">
-                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>{nickname}&apos;s Giveaway</h2> {/* 닉네임 */}
+                                <h2 className={`${afacad.className} text-black text-2xl md:text-3xl font-bold mb-4`}>{nickname}&apos;s Giveaway</h2> {/* 닉네임 */}
                                 <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
                                     <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
                                         onMouseEnter={handleMouseEnterItem}
@@ -412,7 +417,7 @@ export default function Giveaway() {
                                             .placeholder-custom::placeholder {
                                             font-family: ${afacad.style.fontFamily}, ${do_Hyeon.style.fontFamily};
                                             }
-                                    `}</style>
+                                        `}</style>
                                     </div>
                                     <div className="flex space-x-8">
                                         <div

@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, showPopup }: Sidebar
 
     return isOpen ? (
         <div
-            className={`fixed inset-0 flex h-screen transition-transform duration-500 ${isAnimating ? 'animate-slideIn' : 'animate-slideOut'
+            className={`z-50 fixed inset-0 flex h-screen transition-transform duration-500 ${isAnimating ? 'animate-slideIn' : 'animate-slideOut'
                 }`}
         >
             <div className="w-52 bg-gray-900 text-white relative">

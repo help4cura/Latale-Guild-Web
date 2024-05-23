@@ -99,7 +99,7 @@ export default function Profile({ onLogout }: ProfileProps) {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md mx-auto">
+        <div className=" bg-white p-4 rounded-lg shadow-md mx-auto z-10">
             <div className="flex flex-col items-center pb-4">
                 <div onClick={handleProfileImageClick}>
                     <ProfileImage profileImage={profileImage} />

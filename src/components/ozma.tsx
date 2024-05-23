@@ -84,7 +84,7 @@ export function _ozma() {
         <div className="flex items-center space-x-2">
           <RegisterButton />
         </div>
-        <header className="py-12 z-50">
+        <header className="py-12">
           <Link className="flex items-center justify-center" href="#">
             <ScaleIcon className="mb-1 w-1 h-10" />
             <span className="sr-only">Oryx</span>
@@ -92,10 +92,10 @@ export function _ozma() {
         </header>
         <main className="container px-4 md:px-6 flex flex-col items-center justify-center space-y-8 max-w-3xl">
           <div className="flex flex-col items-center justify-center space-y-4">
-            <div className="relative w-full max-w-[300px] h-[300px] overflow-auto rounded-xl shadow-lg z-50">
+            <div className="relative w-full max-w-[300px] h-[300px] overflow-auto rounded-xl shadow-lg">
               <div className="absolute inset-0 bg-gradient-to-br from-[#4c4cff] to-[#ff4c4c] opacity-50 rounded-xl">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center space-y-6 text-gray-50 max-w-md">
+                  <div className="text-center space-y-6 text-gray-50">
                     <h2 className={`${afacad.className} text-3xl font-bold`}>Welcome!</h2>
                     <p className={`${afacad.className} text-lg`}>
                       We&apos;ve been waiting just for you.
