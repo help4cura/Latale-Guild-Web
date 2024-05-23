@@ -42,8 +42,7 @@ next-env.d.ts
 # dev-pages
 Awaken.tsx
 Hidden.tsx
-test.tsx
+Tooltip.tsx
+
 
 # firebase
-firebase.json
-firebaseConfig.ts

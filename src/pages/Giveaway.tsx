@@ -1,5 +1,5 @@
 import { Afacad, Do_Hyeon } from 'next/font/google';
-import AutoFont from '@/components/autofont';
+import AutoFont from '@/components/Util/autofont';
 import { SVGProps } from 'react';
 import React, { useState, useEffect, useRef, MouseEvent } from 'react';
 import { database } from '@/firebaseConfig';
@@ -8,11 +8,11 @@ import { ref as databaseRef, get, set, onValue } from 'firebase/database';
 import Image from 'next/image';
 import Link from "next/link";
 import Sidebar from '@/components/sidebar';
-import PopupImage from '@/components/popupImage';
+import PopupImage from '@/components/Util/popupImage';
 import * as Tooltip from "@/components/tooltip";
-import ProfileImage from '@/components/profileImage';
+import ProfileImage from '@/components/Util/profileImage';
 
-import Confetti from '@/components/confetti';
+import Confetti from '@/components/Util/confetti';
 
 const afacad = Afacad({
     subsets: ['latin']
@@ -372,7 +372,7 @@ export default function Giveaway() {
                                         onMouseLeave={handleMouseLeaveItem}
                                         onMouseMove={handleMouseMove}
                                     >
-                                        <Image alt="Prize" src="prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
+                                        <Image alt="Prize" src="Prize/prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
                                     </div>
                                     <div>
                                         <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>

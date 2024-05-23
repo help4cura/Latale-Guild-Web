@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React, { useState, useEffect, useRef } from 'react'; // React를 명시적으로 임포트
 import Link from "next/link";
 import Sidebar from '@/components/sidebar';
-import PopupImage from '@/components/popupImage';
+import PopupImage from '@/components/Util/popupImage';
 
 //community.tsx
 

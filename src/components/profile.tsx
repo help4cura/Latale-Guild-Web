@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { storage, database } from '../firebaseConfig';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { ref as databaseRef, get, set } from 'firebase/database';
-import AutoFont from './autofont';
-import ProfileImage from './profileImage';
+import AutoFont from './Util/autofont';
+import ProfileImage from './Util/profileImage';
 import Image from 'next/image';
 
 interface ProfileProps {

@@ -1,11 +1,3 @@
-## Based v0
-
-```bash
-라테일 평등 길드 웹
-
-By Oryx, ozma
-```
-
 ## Getting Started
 
 First, run the development server:

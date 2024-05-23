@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SVGProps } from 'react';
-import Register from './register';
-import Profile from './profile';
+import Register from '../register';
+import Profile from '../profile';
 
 export default function RegisterButton() {
     const [isOpen, setOpen] = useState(false);

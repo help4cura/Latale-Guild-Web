@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
 import Sidebar from './sidebar';
-import PopupImage from './popupImage';
+import PopupImage from './Util/popupImage';
 import { SVGProps } from 'react';
 import Image from 'next/image';
-import RegisterButton from './registerButton';
+import RegisterButton from './Util/registerButton';
 
 // Fonts
 import { Afacad } from 'next/font/google';

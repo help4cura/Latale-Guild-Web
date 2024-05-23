@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Afacad } from 'next/font/google';
 import { database } from '../firebaseConfig'; // Firebase 초기화 파일을 가져옴
-import ToggleSlider from './toggleSlider';
+import ToggleSlider from './Util/toggleSlider';
 import Profile from './profile';
 import { ref as databaseRef, get, set, update, runTransaction } from 'firebase/database';
 
