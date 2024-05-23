@@ -92,7 +92,7 @@ export function _ozma() {
         </header>
         <main className="container px-4 md:px-6 flex flex-col items-center justify-center space-y-8 max-w-3xl">
           <div className="flex flex-col items-center justify-center space-y-4">
-            <div className="relative w-full max-w-[300px] h-[300px] overflow-auto rounded-xl shadow-lg">
+            <div className="relative max-w-[300px] h-[300px] overflow-auto rounded-xl shadow-lg">
               <div className="absolute inset-0 bg-gradient-to-br from-[#4c4cff] to-[#ff4c4c] opacity-50 rounded-xl">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center space-y-6 text-gray-50">
@@ -105,7 +105,7 @@ export function _ozma() {
               </div>
               <Image
                 alt="Poster"
-                className="object-cover w-full h-full rounded-xl"
+                className="object-cover max-w-[300px] h-[300px] rounded-xl"
                 height={300}
                 src="/placeholder.svg"
                 style={{
