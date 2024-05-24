@@ -6,6 +6,7 @@ import { database } from '../firebaseConfig'; // Firebase 초기화 파일을 �
 import ToggleSlider from './Util/toggleSlider';
 import Profile from './profile';
 import { ref as databaseRef, get, set, update, runTransaction } from 'firebase/database';
+import * as bcrypt from 'bcryptjs';
 
 const afacad = Afacad({
     subsets: ['latin']
@@ -100,6 +101,7 @@ export default function Register() {
             }
 
             try {
+                const hashedPassword = await bcrypt.hash(formData.password, 10); // 비밀번호 해싱
                 const accountIdRef = databaseRef(database, 'nextAccountId');
                 const newAccountId = await runTransaction(accountIdRef, currentId => {
                     if (currentId === null) {
@@ -114,6 +116,7 @@ export default function Register() {
                     const userRef = databaseRef(database, `users/${newId}`);
                     await set(userRef, {
                         ...formData,
+                        password: hashedPassword, // 해시된 비밀번호 저장
                         accountId: newId
                     });
                     alert('회원가입 완료되었습니다.');
@@ -136,11 +139,14 @@ export default function Register() {
 
                 for (const key in users) {
                     const currentUser = users[key];
-                    if (currentUser.username === formData.username && currentUser.password === formData.password) {
-                        loginSuccessful = true;
-                        userId = key;
-                        user = currentUser;
-                        break;
+                    if (currentUser.username === formData.username) {
+                        const isPasswordMatch = await bcrypt.compare(formData.password, currentUser.password); // 비밀번호 비교
+                        if (isPasswordMatch) {
+                            loginSuccessful = true;
+                            userId = key;
+                            user = currentUser;
+                            break;
+                        }
                     }
                 }
 
@@ -150,7 +156,7 @@ export default function Register() {
                         username: user.username,
                         nickname: user.nickname,
                         admin: user.admin,
-                        isLogin: true
+                        //isLogin: true
                     }));
                     setFormData(prevFormData => ({
                         ...prevFormData,
@@ -216,6 +222,23 @@ export default function Register() {
 
 
     useEffect(() => {
+        const checkSessionStorage = () => {
+            const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
+            if (storedUser.username) {
+                setFormData(prevFormData => ({
+                    ...prevFormData,
+                    username: storedUser.username,
+                    nickname: storedUser.nickname,
+                    admin: storedUser.admin,
+                    isLogin: true
+                }));
+            }
+        };
+
+        checkSessionStorage();
+    }, []);
+
+    useEffect(() => {
         const syncUserInfo = async () => {
             const storedUser = JSON.parse(sessionStorage.getItem('user') || '{}');
             if (storedUser.username) {
@@ -237,8 +260,7 @@ export default function Register() {
                     sessionStorage.setItem('user', JSON.stringify({
                         username: user.username,
                         nickname: user.nickname,
-                        admin: user.admin,
-                        isLogin: user.isLogin
+                        admin: user.admin
                     }));
 
                     setFormData(prevFormData => ({
@@ -246,7 +268,7 @@ export default function Register() {
                         username: user.username,
                         nickname: user.nickname,
                         admin: user.admin,
-                        isLogin: user.isLogin
+                        //isLogin: user.isLogin
                     }));
                 }
             }
