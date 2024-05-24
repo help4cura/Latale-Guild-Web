@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import useServerTime from './Util/useServerTime';
+import funcServerTime from './Util/funcServerTime';
 
 const statInfo: { [key: number]: string } = {
     26: '체력',

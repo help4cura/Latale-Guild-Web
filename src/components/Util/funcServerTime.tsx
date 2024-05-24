@@ -6,7 +6,7 @@ interface UseServerTimeResult {
     serverTime: Date | null;
 }
 
-const useServerTime = (targetDate: Date): UseServerTimeResult => {
+const funcServerTime = (targetDate: Date): UseServerTimeResult => {
     const initialMessage = new Date() >= targetDate ? 'Access Key : Good Luck!' : '2024-05-22 16:30에 공개 됩니다.';
     const [message, setMessage] = useState(initialMessage);
     const [serverTime, setServerTime] = useState<Date | null>(null);
@@ -115,4 +115,4 @@ const useServerTime = (targetDate: Date): UseServerTimeResult => {
     return { message, serverTime };
 };
 
-export default useServerTime;
+export default funcServerTime;
