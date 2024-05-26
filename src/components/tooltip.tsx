@@ -152,7 +152,7 @@ export function Giveaway_AccessKey01() {
             </div>
             <div className="font-gulim text-12px text-gray-600">
                 {/*{message}*/}
-                Access Key : Good Luck!
+                Access Key : 카카오톡 공지방 입장 시, 확인 가능
             </div>
         </div>
     );
