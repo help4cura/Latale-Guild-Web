@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import funcServerTime from './Util/funcServerTime';
+import FuncServerTime from './Util/funcServerTime';
 
 const statInfo: { [key: number]: string } = {
     26: '체력',
@@ -27,7 +27,7 @@ const formatStat = (stat: string, value: number): string => {
 export function Item0() {
 
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center w-56 border-2 border-item-outline rounded-lg bg-white p-2" style={{ zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center w-56 border-2 border-item-outline rounded-lg bg-white p-2" style={{ zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-center text-item-blue">
                 멀린의 토템 +50
             </div>
@@ -59,7 +59,7 @@ export function Item0() {
 
 export function Item1() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '100%' }}>
             <div className="font-gulim text-12px font-bold text-center">
                 2024 로얄 상자 3
             </div>
@@ -100,7 +100,7 @@ export function Item1() {
 
 export function Item2() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '100%' }}>
             <div className="font-gulim text-12px font-bold text-center text-item-end">
                 개조된 드라이고플람의 시계
             </div>
@@ -146,13 +146,13 @@ export function Giveaway_AccessKey01() {
     //const { message } = useServerTime(targetDate);
 
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 Access Key
             </div>
             <div className="font-gulim text-12px text-gray-600">
                 {/*{message}*/}
-                Access Key : 카카오톡 공지방 입장 시, 확인 가능
+                Access Key : 2ndgiveaway
             </div>
         </div>
     );
@@ -160,7 +160,7 @@ export function Giveaway_AccessKey01() {
 
 export function Skill_Awaken_1() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 【 스타시커 】
             </div>
@@ -188,7 +188,7 @@ export function Skill_Awaken_1() {
 
 export function Skill_Awaken_2() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -206,7 +206,7 @@ export function Skill_Awaken_2() {
 
 export function Skill_Awaken_3() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 명중 및 회피
             </div>
@@ -228,7 +228,7 @@ export function Skill_Awaken_3() {
 
 export function Skill_Awaken_4() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 이동속도
             </div>
@@ -246,7 +246,7 @@ export function Skill_Awaken_4() {
 
 export function Skill_Awaken_5() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 이동속도
             </div>
@@ -264,7 +264,7 @@ export function Skill_Awaken_5() {
 
 export function Skill_Awaken_6() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 명중 및 회피
             </div>
@@ -286,7 +286,7 @@ export function Skill_Awaken_6() {
 
 export function Skill_Awaken_7() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 다재다능
             </div>
@@ -310,7 +310,7 @@ export function Skill_Awaken_7() {
 
 export function Skill_Awaken_8() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -327,7 +327,7 @@ export function Skill_Awaken_8() {
 
 export function Skill_Awaken_9() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 방어 및 저항
             </div>
@@ -347,7 +347,7 @@ export function Skill_Awaken_9() {
 
 export function Skill_Awaken_10() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 최대 HP
             </div>
@@ -363,7 +363,7 @@ export function Skill_Awaken_10() {
 }
 export function Skill_Awaken_11() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 최대 HP
             </div>
@@ -380,7 +380,7 @@ export function Skill_Awaken_11() {
 
 export function Skill_Awaken_12() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 방어 및 저항
             </div>
@@ -400,7 +400,7 @@ export function Skill_Awaken_12() {
 
 export function Skill_Awaken_13() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 철벽
             </div>
@@ -423,7 +423,7 @@ export function Skill_Awaken_13() {
 
 export function Skill_Awaken_14() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -440,7 +440,7 @@ export function Skill_Awaken_14() {
 
 export function Skill_Awaken_15() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 일반 몬스터 대미지
             </div>
@@ -457,7 +457,7 @@ export function Skill_Awaken_15() {
 
 export function Skill_Awaken_16() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 보스 몬스터 대미지
             </div>
@@ -474,7 +474,7 @@ export function Skill_Awaken_16() {
 
 export function Skill_Awaken_17() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 일반 몬스터 대미지(%)
             </div>
@@ -491,7 +491,7 @@ export function Skill_Awaken_17() {
 
 export function Skill_Awaken_18() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 보스 몬스터 대미지(%)
             </div>
@@ -508,7 +508,7 @@ export function Skill_Awaken_18() {
 
 export function Skill_Awaken_19() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -525,7 +525,7 @@ export function Skill_Awaken_19() {
 
 export function Skill_Awaken_20() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -542,7 +542,7 @@ export function Skill_Awaken_20() {
 
 export function Skill_Awaken_21() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -559,7 +559,7 @@ export function Skill_Awaken_21() {
 
 export function Skill_Awaken_22() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -577,7 +577,7 @@ export function Skill_Awaken_22() {
 
 export function Skill_Awaken_23() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -595,7 +595,7 @@ export function Skill_Awaken_23() {
 
 export function Skill_Awaken_24() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -613,7 +613,7 @@ export function Skill_Awaken_24() {
 
 export function Skill_Awaken_25() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -631,7 +631,7 @@ export function Skill_Awaken_25() {
 
 export function Skill_Awaken_26() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -649,7 +649,7 @@ export function Skill_Awaken_26() {
 
 export function Skill_Awaken_27() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -667,7 +667,7 @@ export function Skill_Awaken_27() {
 
 export function Skill_Awaken_28() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -685,7 +685,7 @@ export function Skill_Awaken_28() {
 
 export function Skill_Awaken_29() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -703,7 +703,7 @@ export function Skill_Awaken_29() {
 
 export function Skill_Awaken_30() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -721,7 +721,7 @@ export function Skill_Awaken_30() {
 
 export function Skill_Awaken_31() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-2">
                 올스탯
             </div>
@@ -739,7 +739,7 @@ export function Skill_Awaken_31() {
 
 export function Skill_Awaken_32() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -756,7 +756,7 @@ export function Skill_Awaken_32() {
 
 export function Skill_Awaken_33() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -773,7 +773,7 @@ export function Skill_Awaken_33() {
 
 export function Skill_Awaken_34() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -790,7 +790,7 @@ export function Skill_Awaken_34() {
 
 export function Skill_Awaken_35() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -807,7 +807,7 @@ export function Skill_Awaken_35() {
 
 export function Skill_Awaken_36() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -824,7 +824,7 @@ export function Skill_Awaken_36() {
 
 export function Skill_Awaken_37() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -841,7 +841,7 @@ export function Skill_Awaken_37() {
 
 export function Skill_Awaken_38() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -858,7 +858,7 @@ export function Skill_Awaken_38() {
 
 export function Skill_Awaken_39() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -875,7 +875,7 @@ export function Skill_Awaken_39() {
 
 export function Skill_Awaken_40() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -892,7 +892,7 @@ export function Skill_Awaken_40() {
 
 export function Skill_Awaken_41() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -909,7 +909,7 @@ export function Skill_Awaken_41() {
 
 export function Skill_Awaken_42() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -926,7 +926,7 @@ export function Skill_Awaken_42() {
 
 export function Skill_Awaken_43() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -943,7 +943,7 @@ export function Skill_Awaken_43() {
 
 export function Skill_Awaken_44() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -960,7 +960,7 @@ export function Skill_Awaken_44() {
 
 export function Skill_Awaken_45() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -977,7 +977,7 @@ export function Skill_Awaken_45() {
 
 export function Skill_Awaken_46() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -994,7 +994,7 @@ export function Skill_Awaken_46() {
 
 export function Skill_Awaken_47() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -1011,7 +1011,7 @@ export function Skill_Awaken_47() {
 
 export function Skill_Awaken_48() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -1028,7 +1028,7 @@ export function Skill_Awaken_48() {
 
 export function Skill_Awaken_49() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -1045,7 +1045,7 @@ export function Skill_Awaken_49() {
 
 export function Skill_Awaken_50() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 체력
             </div>
@@ -1062,7 +1062,7 @@ export function Skill_Awaken_50() {
 
 export function Skill_Awaken_51() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -1079,7 +1079,7 @@ export function Skill_Awaken_51() {
 
 export function Skill_Awaken_52() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 근력 및 마법력
             </div>
@@ -1096,7 +1096,7 @@ export function Skill_Awaken_52() {
 
 export function Skill_Awaken_53() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 이동속도
             </div>
@@ -1114,7 +1114,7 @@ export function Skill_Awaken_53() {
 
 export function Skill_Awaken_54() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 이동속도
             </div>
@@ -1132,7 +1132,7 @@ export function Skill_Awaken_54() {
 
 export function Skill_Awaken_55() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 이동속도
             </div>
@@ -1150,7 +1150,7 @@ export function Skill_Awaken_55() {
 
 export function Skill_Awaken_57() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 크리티컬 대미지
             </div>
@@ -1167,7 +1167,7 @@ export function Skill_Awaken_57() {
 
 export function Skill_Awaken_58() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 『 파괴자 』
             </div>
@@ -1184,7 +1184,7 @@ export function Skill_Awaken_58() {
 
 export function Skill_Awaken_59() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 크리티컬 대미지
             </div>
@@ -1201,7 +1201,7 @@ export function Skill_Awaken_59() {
 
 export function Skill_Awaken_222() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 [ 인피니티 ]
             </div>
@@ -1224,7 +1224,7 @@ export function Skill_Awaken_222() {
 
 export function Skill_Awaken_251() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '208px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 레벨 업
             </div>
@@ -1242,7 +1242,7 @@ export function Skill_Awaken_251() {
 
 export function Skill_Awaken_205() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '290px', zoom: '67%' }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: '290px', zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 【 펜오브나이프&애로우붐&이스케이프 샷 】
             </div>
@@ -1279,7 +1279,7 @@ export function Skill_Awaken_205() {
 
 export function Skill_Awaken_237() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 [ 각성 I ]
             </div>
@@ -1302,7 +1302,7 @@ export function Skill_Awaken_237() {
 
 export function Skill_Awaken_233() {
     return (
-        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "67%" }}>
+        <div className="shadow-itemShadow flex flex-col flex-1 justify-center border-2 border-item-outline rounded-lg bg-white p-2" style={{ width: "290px", zoom: "100%" }}>
             <div className="font-gulim text-12px font-bold text-gray-600 text-center mb-4">
                 【 만천화우&애로우 트랩&바밍크라이 】
             </div>
