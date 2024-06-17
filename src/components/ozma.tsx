@@ -78,7 +78,7 @@ export function _ozma() {
         />
       )}
 
-      <div className="flex flex-col flex-1 items-center justify-center">
+      <div className="flex flex-col flex-1 items-center justify-center" style={{ zoom: "120%" }}>
         {/* 나머지 페이지 내용 */}
         <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
         <div className="flex items-center space-x-2">

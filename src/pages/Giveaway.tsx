@@ -259,13 +259,14 @@ export default function Giveaway() {
             <div
                 key="1"
                 className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-br from-orange-200 via-red-100 to-purple-200 py-12 md:py-24" >
+                <header className="py-12" style={{ zoom: "120%" }}>
+                    <Link className="flex items-center justify-center" href="/">
+                        <ScaleIcon className="mb-1 w-1 h-10" />
+                        <span className="sr-only">Oryx</span>
+                    </Link>
+                </header>
                 <div className="px-4 md:px-6" style={{ width: '1200px', height: '600px' }}>
-                    <h1 className={`${afacad.className} text-4xl md:text-6xl font-bold text-white mb-8 text-center`}>
-                        <Link className="flex items-center justify-center" href="/">
-                            <ScaleIcon className="mb-1 w-1 h-10" />
-                            <span className="sr-only">Oryx</span>
-                        </Link>
-                    </h1>
+
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
                             {isLoading ? (

@@ -51,19 +51,19 @@ export default function Community() {
                     showPopup={showPopup}
                 />
             )}
-            <div className="flex flex-col flex-1 items-center justify-center"> {/* 나머지 페이지 내용 */}
+            <div className="flex flex-col flex-1 items-center justify-center" style={{ zoom: "120%" }}> {/* 나머지 페이지 내용 */}
                 <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
                 <div className="w-full max-w-4xl -mt-20 py-2">
                     <div className="container text-black mx-auto flex flex-col items-center gap-4 px-4 md:px-6">
                         <div className="grid gap-2 text-center">
-                            <div className="flex flex-col flex-1 items-center justify-center py-2">
-                                <header>
+                            <div className="flex flex-col flex-1 items-center justify-center">
+                                <header className="py-10">
                                     <Link className="flex items-center justify-center" href="/">
                                         <ScaleIcon className="mb-1 w-1 h-10" />
                                         <span className="sr-only">Oryx</span>
                                     </Link>
                                 </header>
-                                <h1 className={`${afacad.className} py-6 text-4xl font-bold tracking-tighter`}>
+                                <h1 className={`${afacad.className} mb-8 text-4xl font-bold tracking-tighter`}>
                                     Contact Us!
                                 </h1>
                             </div>
