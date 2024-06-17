@@ -51,8 +51,9 @@ export default function Community() {
                     showPopup={showPopup}
                 />
             )}
+            <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
             <div className="flex flex-col flex-1 items-center justify-center" style={{ zoom: "120%" }}> {/* 나머지 페이지 내용 */}
-                <PopupImage isVisible={isPopupVisible} onClose={handlePopupClose} />
+
                 <div className="w-full max-w-4xl -mt-20 py-2">
                     <div className="container text-black mx-auto flex flex-col items-center gap-4 px-4 md:px-6">
                         <div className="grid gap-2 text-center">

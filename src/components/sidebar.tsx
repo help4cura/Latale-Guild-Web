@@ -44,20 +44,20 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, showPopup }: Sidebar
                         </div>
                         <ul className="space-y-4">
                             <li>
-                                <a className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800" href="#">
+                                <Link href="/Notice" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800 text-white">
                                     <BellIcon className="h-6 w-6" />
                                     <span className={`${afacad.className} text-2xl`}>Notice</span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <Link href="/Community" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800">
+                                <Link href="/Community" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800 text-white">
                                     <UsersIcon className="h-6 w-6" />
                                     <span className={`${afacad.className} text-2xl`}>Community</span>
                                 </Link>
                             </li>
                             <li>
                                 <a
-                                    className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800" href="#"
+                                    className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800 text-white" href="#"
                                     onClick={showPopup}
                                 >
                                     <MailOpenIcon className="h-6 w-6" />
@@ -65,7 +65,7 @@ export default function Sidebar({ isOpen, setIsSidebarOpen, showPopup }: Sidebar
                                 </a>
                             </li>
                             <li>
-                                <Link href="/Giveaway" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800">
+                                <Link href="/Giveaway" className="flex items-center space-x-3 rounded-md px-3 py-2 hover:bg-gray-800 text-white">
                                     <GiftIcon className="h-6 w-6" />
                                     <span className={`${afacad.className} text-2xl`}>Giveaway</span>
                                 </Link>
