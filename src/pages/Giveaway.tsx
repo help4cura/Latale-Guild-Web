@@ -229,7 +229,7 @@ export default function Giveaway() {
         }
     };
 
-    const commonStyle = 'bg-[#6B46C1] text-white p-8 flex flex-col items-center justify-center relative';
+    const commonStyle = 'bg-[#6B46C1] text-white p-20 flex flex-col items-center justify-center relative';
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
@@ -240,9 +240,9 @@ export default function Giveaway() {
                     onClick={() => setIsSidebarOpen(true)}
                 >
                     <div className="space-y-2">
-                        <span className="block w-8 h-0.5 bg-black"></span>
-                        <span className="block w-8 h-0.5 bg-black"></span>
-                        <span className="block w-8 h-0.5 bg-black"></span>
+                        <span className="block w-10 h-1 bg-black"></span>
+                        <span className="block w-10 h-1 bg-black"></span>
+                        <span className="block w-10 h-1 bg-black"></span>
                     </div>
                 </button>
             )}
@@ -259,7 +259,7 @@ export default function Giveaway() {
             <div
                 key="1"
                 className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-br from-orange-200 via-red-100 to-purple-200 py-12 md:py-24" >
-                <div className="max-w-4xl px-4 md:px-6">
+                <div className="px-4 md:px-6" style={{ width: '1200px', height: '600px' }}>
                     <h1 className={`${afacad.className} text-4xl md:text-6xl font-bold text-white mb-8 text-center`}>
                         <Link className="flex items-center justify-center" href="/">
                             <ScaleIcon className="mb-1 w-1 h-10" />
@@ -269,19 +269,20 @@ export default function Giveaway() {
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2">
                             {isLoading ? (
-                                <div className={classNames(commonStyle)}>
+                                <div className={classNames(commonStyle)} style={{ zoom: "100%" }}>
                                     <div className={`${afacad.className} text-2xl font-bold`}>Loading...</div>
                                 </div>
                             ) : (
                                 <>
-                                    <div className={classNames(commonStyle)} onMouseDown={(e) => e.preventDefault()}>
+                                    <div className={classNames(commonStyle)} style={{ zoom: "100%" }} onMouseDown={(e) => e.preventDefault()}>
                                         {!isTimerComplete ? (
                                             <>
-                                                <h2 className={`${afacad.className} text-2xl md:text-3xl font-bold mb-4`}>Time Remaining</h2>
+                                                <h2 className={`${afacad.className} font-bold mb-4`} style={{ fontSize: '50px' }}>Time Remaining</h2>
+
                                                 <CountdownTimer endTimeStr={endTimeStr} onComplete={handleTimerComplete} />
-                                                <div className={`${afacad.className} mt-8 text-2xl font-bold`}>
+                                                <div className={`${afacad.className} mt-8 font-bold`} style={{ fontSize: '30px' }}>
                                                     <span>Participants: {totalParticipants}, Win Rate : {winRate.toFixed(2)}%</span>
-                                                    <div className="flex flex-col text-sm items-center justify-center mt-4">
+                                                    <div className="flex flex-col text-sm items-center justify-center mt-4" style={{ fontSize: '16px' }}>
                                                         <AutoFont text='여러 계정으로 참여 사실이 있을 시, 무효 처리됩니다.'></AutoFont>
                                                         <AutoFont text='길드 기여도 가산 : 미적용'></AutoFont>
                                                     </div>
@@ -307,20 +308,20 @@ export default function Giveaway() {
                                 </>
                             )}
                             <div className="p-8 flex flex-col items-center justify-center">
-                                <h2 className={`${afacad.className} text-black text-2xl md:text-3xl font-bold mb-4`}>{nickname}&apos;s Giveaway</h2> {/* 닉네임 */}
-                                <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-4 animate-aurora">
-                                    <div className="rounded-lg mr-4 w-16 h-16 overflow-hidden flex items-center justify-center border-2 border-white"
+                                <h2 className={`${afacad.className} text-black font-bold mb-4`} style={{ fontSize: '50px' }}>{nickname}&apos;s Giveaway</h2> {/* 닉네임 */}
+                                <div className="flex items-center mb-4 rounded-lg border bg-aurora-gradient border-gray-100 shadow-md p-8 animate-aurora">
+                                    <div className="rounded-lg mr-4 w-24 h-24 overflow-hidden flex items-center justify-center border-2 border-white"
                                         onMouseEnter={handleMouseEnterItem}
                                         onMouseLeave={handleMouseLeaveItem}
                                         onMouseMove={handleMouseMove}
                                     >
-                                        <Image alt="Prize" src="prize/prize002.png" width={40} height={40} style={{ objectFit: "contain" }} />
+                                        <Image alt="Prize" src="prize/prize002.png" width={60} height={60} style={{ objectFit: "contain" }} />
                                     </div>
                                     <div>
-                                        <h3 className={`${afacad.className} text-xl font-bold text-white animate-bounce`}>
+                                        <h3 className={`${afacad.className} text-2xl font-bold text-white animate-bounce`}>
                                             <AutoFont text='로얄 상자'></AutoFont>
                                         </h3>
-                                        <p className={`${afacad.className} text-white`}>x{prizeCount}</p> {/* 개수 */}
+                                        <p className={`${afacad.className} text-white text-xl mt-5`}>x{prizeCount}</p> {/* 개수 */}
                                     </div>
                                     {isItemVisible && (
                                         <div
@@ -338,7 +339,7 @@ export default function Giveaway() {
                                 </div>
                                 <div className="space-y-4 w-full">
                                     <div className="space-y-2">
-                                        <label htmlFor="access" className={`${afacad.className} block text-sm font-medium text-gray-700`}>
+                                        <label htmlFor="access" className={`${afacad.className} block text-lg font-medium text-gray-700`}>
                                             Access Key
                                         </label>
                                         <input
@@ -361,7 +362,7 @@ export default function Giveaway() {
                                             onMouseEnter={handleMouseEnterHint}
                                             onMouseLeave={handleMouseLeaveHint}
                                             onMouseMove={handleMouseMove}
-                                            className={`${afacad.className} text-center w-1/2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}
+                                            className={`${afacad.className} text-center w-1/2 py-2 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}
                                         >
                                             Hint?
                                         </div>
@@ -380,7 +381,7 @@ export default function Giveaway() {
                                         )}
                                         <button
                                             onClick={handleEnterNow}
-                                            className={`${afacad.className} w-1/2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}
+                                            className={`${afacad.className} w-1/2 py-2 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-purple-700 hover:bg-purple-600 mx-auto`}
                                         >
                                             Enter!
                                         </button>
@@ -421,7 +422,7 @@ function ScaleIcon(props: SVGProps<SVGSVGElement>) {
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-20 h-20"
+            className="w-24 h-24"
         >
             <defs>
                 <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="0%" y2="100%" ref={gradientRef}>

@@ -38,9 +38,9 @@ export default function Community() {
                     onClick={() => setIsSidebarOpen(true)}
                 >
                     <div className="space-y-2">
-                        <span className="block w-8 h-0.5 bg-black"></span>
-                        <span className="block w-8 h-0.5 bg-black"></span>
-                        <span className="block w-8 h-0.5 bg-black"></span>
+                        <span className="block w-10 h-1 bg-black"></span>
+                        <span className="block w-10 h-1 bg-black"></span>
+                        <span className="block w-10 h-1 bg-black"></span>
                     </div>
                 </button>
             )}
@@ -63,12 +63,12 @@ export default function Community() {
                                         <span className="sr-only">Oryx</span>
                                     </Link>
                                 </header>
-                                <h1 className={`${afacad.className} py-6 text-3xl font-bold tracking-tighter`}>
+                                <h1 className={`${afacad.className} py-6 text-4xl font-bold tracking-tighter`}>
                                     Contact Us!
                                 </h1>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ zoom: "120%" }}>
                             <a
                                 href="https://discord.gg/jKhWV42r5z"
                                 target="_blank"
@@ -145,7 +145,7 @@ function ScaleIcon(props: SVGProps<SVGSVGElement>) {
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-20 h-20"
+            className="w-24 h-24"
         >
             <defs>
                 <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="0%" y2="100%" ref={gradientRef}>

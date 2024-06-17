@@ -64,9 +64,9 @@ export function _ozma() {
           onClick={() => setIsSidebarOpen(true)}
         >
           <div className="space-y-2">
-            <span className="block w-8 h-0.5 bg-black"></span>
-            <span className="block w-8 h-0.5 bg-black"></span>
-            <span className="block w-8 h-0.5 bg-black"></span>
+            <span className="block w-10 h-1 bg-black"></span>
+            <span className="block w-10 h-1 bg-black"></span>
+            <span className="block w-10 h-1 bg-black"></span>
           </div>
         </button>
       )}
@@ -151,7 +151,7 @@ function ScaleIcon(props: SVGProps<SVGSVGElement>) {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-20 h-20"
+      className="w-24 h-24"
     >
       <defs>
         <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="0%" y2="100%" ref={gradientRef}>
