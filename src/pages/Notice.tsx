@@ -14,6 +14,7 @@ type Notice = {
     isNew: boolean;
     Title: string;
     ViewCount: number;
+    Category: number;
 };
 
 type User = {
@@ -24,11 +25,12 @@ type User = {
 const Notice = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [searchCategory, setCategory] = useState('title');
+    const [searchCategory, setSearchCategory] = useState('title');
     const [keyword, setKeyword] = useState('');
     const [notices, setNotices] = useState<Notice[]>([]);
     const [users, setUsers] = useState<{ [key: string]: User }>({});
     const [isSelected, setIsSelected] = useState(false);
+    const [category, setCategory] = useState('1');
 
     useEffect(() => {
         const link = document.createElement('link');
@@ -55,6 +57,8 @@ const Notice = () => {
             }
         });
     }, []);
+
+    console.log(category)
 
     const showPopup = () => {
         setIsPopupVisible(true);
@@ -88,13 +92,13 @@ const Notice = () => {
         setIsSelected(!isSelected);
     };
 
-    const categoryChange = (category: string) => {
-        setCategory(category);
+    const searchCategoryChange = (searchCategory: string) => {
+        setSearchCategory(searchCategory);
         setIsSelected(false);
     };
 
-    const getCategory = (category: string) => {
-        switch (category) {
+    const getSearchCategory = (searchCategory: string) => {
+        switch (searchCategory) {
             case 'title':
                 return '제목';
             case 'contents':
@@ -104,6 +108,11 @@ const Notice = () => {
             default:
                 return '제목';
         }
+    };
+
+    // Function to set category and update tab class names
+    const categoryChange = (category: string) => {
+        setCategory(category);
     };
 
     return (
@@ -149,7 +158,10 @@ const Notice = () => {
                                                 <nav className="tab">
                                                     <ul>
                                                         <li>
-                                                            <a className="on" href="">공지</a>
+                                                            <a className={category === '1' ? "on" : "off"} href="#" onClick={() => categoryChange('1')}>공지</a>
+                                                        </li>
+                                                        <li>
+                                                            <a className={category === '2' ? "on" : "off"} href="#" onClick={() => categoryChange('2')}>일정</a>
                                                         </li>
                                                     </ul>
                                                 </nav>
@@ -159,21 +171,21 @@ const Notice = () => {
                                                     <input type="hidden" name="category" value="1" />
                                                     <div className="js-select">
                                                         <span className={`selected ${isSelected ? 'expend' : ''}`} onClick={toggleSelect}>
-                                                            {getCategory(searchCategory)}
+                                                            {getSearchCategory(searchCategory)}
                                                         </span>
                                                         <ul className={`select-list ${isSelected ? 'expend' : ''}`}>
                                                             <li>
-                                                                <button type="button" className={searchCategory === 'title' ? 'on' : ''} onClick={() => categoryChange('title')}>제목</button>
+                                                                <button type="button" className={searchCategory === 'title' ? 'on' : ''} onClick={() => searchCategoryChange('title')}>제목</button>
                                                             </li>
                                                             <li>
-                                                                <button type="button" className={searchCategory === 'contents' ? 'on' : ''} onClick={() => categoryChange('contents')}>내용</button>
+                                                                <button type="button" className={searchCategory === 'contents' ? 'on' : ''} onClick={() => searchCategoryChange('contents')}>내용</button>
                                                             </li>
                                                             <li>
-                                                                <button type="button" className={searchCategory === 'titlecontents' ? 'on' : ''} onClick={() => categoryChange('titlecontents')}>제목+내용</button>
+                                                                <button type="button" className={searchCategory === 'titlecontents' ? 'on' : ''} onClick={() => searchCategoryChange('titlecontents')}>제목+내용</button>
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    <select name="search" style={{ display: 'none' }} value={searchCategory} onChange={(e) => setCategory(e.target.value)}>
+                                                    <select name="search" style={{ display: 'none' }} value={searchCategory} onChange={(e) => setSearchCategory(e.target.value)}>
                                                         <option value="title">제목</option>
                                                         <option value="contents">내용</option>
                                                         <option value="titlecontents">제목+내용</option>
@@ -204,53 +216,58 @@ const Notice = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {notices.map((notice) => {
-                                                        const adminLevel = getUserAdminLevel(notice.Writer);
-                                                        const imageSrc = getImageSrc(adminLevel);
-                                                        return (
-                                                            <tr key={notice.id}>
-                                                                <td className="category">
-                                                                    <span className="pink">공지</span>
-                                                                </td>
-                                                                <td className="subject">
-                                                                    <span className="subject">
-                                                                        <a href="">{notice.Title}</a>
-                                                                        {notice.isHot && <em className="hot" title="Hot">Hot</em>}
-                                                                        {notice.isNew && <em className="new" title="New">New</em>}
-                                                                    </span>
-                                                                </td>
-                                                                <td className="writer">
-                                                                    {notice.Writer === '라테일' ? (
-                                                                        <div className="user-character admin">
-                                                                            <div className="image">라테일</div>
-                                                                            <div className="name">라테일</div>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div className="user-character relative">
-                                                                            {adminLevel > 0 && (
-                                                                                <Image
-                                                                                    alt="admin"
-                                                                                    width="30"
-                                                                                    height="30"
-                                                                                    className="inline-block bg-no-repeat bg-[0px] bg-origin-padding bg-clip-border border-collapse box-border text-transparent leading-[0px] transition-all"
-                                                                                    src={imageSrc}
-                                                                                />
-                                                                            )}
-                                                                            <div className="name">
-                                                                                {notice.Writer}
+                                                    {notices
+                                                        .filter(notice => notice.Category.toString() === category) // Filter notices by selected category
+                                                        .map((notice) => {
+                                                            const adminLevel = getUserAdminLevel(notice.Writer);
+                                                            const imageSrc = getImageSrc(adminLevel);
+                                                            return (
+                                                                <tr key={notice.id}>
+                                                                    <td className="category">
+                                                                        <span className={notice.Category === 1 ? 'pink' : 'purple'}>
+                                                                            {notice.Category === 1 ? '공지' : '일정'}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td className="subject">
+                                                                        <span className="subject">
+                                                                            <a href={`/Notice/${notice.id}`}>{notice.Title}</a>
+                                                                            {notice.isHot && <em className="hot" title="Hot">Hot</em>}
+                                                                            {notice.isNew && <em className="new" title="New">New</em>}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td className="writer">
+                                                                        {notice.Writer === '라테일' ? (
+                                                                            <div className="user-character admin">
+                                                                                <div className="image">라테일</div>
+                                                                                <div className="name">라테일</div>
                                                                             </div>
-                                                                        </div>
-                                                                    )}
-                                                                </td>
-                                                                <td className="write-date">
-                                                                    <time>{notice.Date}</time>
-                                                                </td>
-                                                                <td className="read-count">
-                                                                    <span>{notice.ViewCount}</span>
-                                                                </td>
-                                                            </tr>
-                                                        );
-                                                    })}
+                                                                        ) : (
+                                                                            <div className="user-character relative">
+                                                                                {adminLevel > 0 && (
+                                                                                    <Image
+                                                                                        alt="admin"
+                                                                                        width="30"
+                                                                                        height="30"
+                                                                                        className="inline-block bg-no-repeat bg-[0px] bg-origin-padding bg-clip-border border-collapse box-border text-transparent leading-[0px] transition-all"
+                                                                                        src={imageSrc}
+                                                                                    />
+                                                                                )}
+                                                                                <div className="name">
+                                                                                    {notice.Writer}
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+                                                                    </td>
+                                                                    <td className="write-date">
+                                                                        <time>{notice.Date}</time>
+                                                                    </td>
+                                                                    <td className="read-count">
+                                                                        <span>{notice.ViewCount}</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                            );
+                                                        })}
                                                 </tbody>
                                             </table>
                                         </div>
